@@ -1,21 +1,25 @@
 {
   "name": "overcloud",
   "version": "1.0.0",
-  "description": "",
+  "description": "Cloud cost optimization platform",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "cd server && npm start",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielVaknin/Overcloud.git"
+  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanielVaknin/Overcloud/issues"
+  },
+  "homepage": "https://github.com/DanielVaknin/Overcloud#readme",
   "dependencies": {
-    "bcrypt": "^5.0.0",
-    "config": "^3.3.3",
-    "express": "^4.17.1",
-    "joi": "^10.6.0",
-    "joi-objectid": "^2.0.0",
-    "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.20",
-    "mongoose": "^5.11.11"
+    "concurrently": "^6.0.0"
   }
 }
