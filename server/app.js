@@ -5,6 +5,7 @@ const users = require('./api/users');
 const auth = require('./api/auth');
 const express = require('express');
 const app = express();
+const http = require('http');
 
 mongoose.connect('mongodb+srv://admin:HMQrrUjrqpnYNJ4R@cluster0.0d9xj.mongodb.net/' +
     'test?authSource=admin&replicaSet=atlas-5cxd80-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true')
