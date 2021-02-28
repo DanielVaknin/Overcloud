@@ -38,7 +38,6 @@ export default function App() {
         <Header />
         {/* Page Content */}
         <div className="container">
-          <div className="row">
            
             {/* /.col-lg-3 */}
             {(user.email !=="") ? (
@@ -52,8 +51,6 @@ export default function App() {
             <Switch>
               <Route path="/Loginform" component={() => <Loginform/>} />
             </Switch>           
-          </div>
-          {/* /.row */}
         </div>
         {/* /.container */}
         {/* Footer */}
