@@ -20,6 +20,14 @@
   },
   "homepage": "https://github.com/DanielVaknin/Overcloud#readme",
   "dependencies": {
-    "concurrently": "^6.0.0"
+    "@react-navigation/stack": "^5.14.3",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
+    "concurrently": "^6.0.0",
+    "react-bootstrap": "^0.32.4",
+    "react-router-dom": "^5.2.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-react": "^7.22.0"
   }
 }
