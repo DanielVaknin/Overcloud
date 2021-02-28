@@ -7,6 +7,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
+import { Link } from "react-router-dom"; 
+
 
 export default function App() {
 
@@ -20,11 +22,11 @@ export default function App() {
     .then(response => setUser({
       email: response.details.email,
       password: response.details.password
-    })).catch(error => {
-      setError("user doesn't exist");
-      console.log("user doesn't exist");
 
-      
+    })
+    ).catch(error => {
+      setError("user doesn't exist");
+    
   });
    
   }
@@ -38,20 +40,15 @@ export default function App() {
         <Header />
         {/* Page Content */}
         <div className="container">
-           
-            {/* /.col-lg-3 */}
-            {(user.email !=="") ? (
-              <div className = "welcome">
-                <Route path="/" exact component={Dashboard} />
-                <button onClick = {Logout}>Logout</button>
-                </div>
-            ):(
-              <Loginform Login = {Login} error = {error}/>
-            )}
-            <Switch>
-              <Route path="/Loginform" component={() => <Loginform/>} />
-            </Switch>           
+          {/* /.col-lg-3 */}
+         
+          <Switch>
+            <Route path="/Loginform" component={() => <Loginform />} />
+            <Route path="/Register" component={() => <Register />} />
+            <Route path="/Dashboard" component={() => <Dashboard />} />
+          </Switch>
         </div>
+
         {/* /.container */}
         {/* Footer */}
         <Footer />

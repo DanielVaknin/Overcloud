@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './Loginform.css'
 import Register from './Register';
+import { Link } from "react-router-dom"; 
+
 
 
 function Loginform({Login, error}) {
@@ -47,12 +49,13 @@ function Loginform({Login, error}) {
 				
 					<div class="form-group">
 						<input type="submit" value="Login" class="btn float-right login_btn"/>
+						    
 					</div>
 				
 			</div>
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-					Don't have an account?<a href="/Register" onClick = {Register}>Sign Up</a>
+					Don't have an account?<Link to = '/Register'>Sign Up</Link>
 				</div>
 				<div class="d-flex justify-content-center">
 					<a href="">Forgot your password?</a>
