@@ -2,10 +2,12 @@ import { useState } from 'react';
 import './Loginform.css'
 import Register from './Register';
 import { Link } from "react-router-dom"; 
+import axios from 'axios';
 
 
 
-function Loginform({Login, error}) {
+
+function Loginform() {
 
    const [details, setDetails] = useState({ email:"", password:""});
 
@@ -14,6 +16,27 @@ function Loginform({Login, error}) {
         Login(details);
     }
 
+	
+	const [user,setUser] = useState({name:"", email:""});
+	const [error, setError] = useState("");
+  
+	const Login = async(details) =>{
+	  console.log(details);
+	  await axios.post('http://localhost:8080/api/auth/login',details)
+	  .then(response => setUser({
+		email: response.details.email,
+		password: response.details.password
+  
+	  })
+	  ).catch(error => {
+		setError("user doesn't exist");
+	  
+	});
+	 
+	}
+	const Logout = ()=>{
+	  setUser({email:"", password: ""});
+	}
     return (
         <form onSubmit = {submitHandler}>
            <title>Login Page</title>
@@ -37,7 +60,7 @@ function Loginform({Login, error}) {
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="username" onChange = {e=>setDetails({...details, email: e.target.value})}value = {details.email}/>
+						<input type="email" class="form-control" placeholder="username" onChange = {e=>setDetails({...details, email: e.target.value})}value = {details.email}/>
 						
 					</div>
 					<div class="input-group form-group">
