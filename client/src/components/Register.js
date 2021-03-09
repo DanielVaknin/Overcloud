@@ -23,14 +23,14 @@ function Register(props) {
 	const sendDetailsToServer = async() => {
 		console.log(details);
 		await axios.post('http://localhost:8080/api/users/register', details)
-				.then(response => setUser({
-					name: response.details.name,
-					email: response.details.email,
-					password: response.details.password
+				.then(response => {console.log(response)
+					setUser({
+					name: response.data.name,
+					email: response.data.email,
 			  
-				  })).catch(error => {
+				  })}).catch(error => {
 					setError("error cannot register");
-					console.log("error register")
+					console.log("error register", error)
 				  
 				});
 	};
