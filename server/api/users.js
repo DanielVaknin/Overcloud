@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const { User, validate } = require('../models/user');
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
 
 router.post('/register', async (req, res) => {
@@ -27,5 +28,6 @@ router.post('/register', async (req, res) => {
         res.send(user);
     }
 });
+
 
 module.exports = router;
