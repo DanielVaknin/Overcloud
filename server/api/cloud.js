@@ -30,7 +30,6 @@ router.post('/addCloudAccount', async (req, res) => {
 
         await cloudAccount.save();
         console.log(cloudAccount._id);
-        res.send(cloudAccount);
 
         //Send the cloudAccount to python service to create recommnedations
 
@@ -39,10 +38,10 @@ router.post('/addCloudAccount', async (req, res) => {
             { json: { identity: cloudAccount._id } },
             function (error, response, body) {
                 console.log(response.body);
-                if (!error && response.statusCode == 200) {
+                if (!error && response.statusCode === 200) {
                     console.log('SUCCEED!');
-                    console.log(body);
                 }
+                res.send(response.body)
             }
         );
 
