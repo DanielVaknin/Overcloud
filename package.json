@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/DanielVaknin/Overcloud#readme",
   "dependencies": {
-    "concurrently": "^6.0.0",
-    "request": "^2.88.2"
+    "concurrently": "^6.0.0"
   }
 }
