@@ -1,20 +1,25 @@
 import React, { useState } from "react";
 import "./Register.css";
 import axios from "axios";
+//import history from '../History';
+import { useHistory } from "react-router-dom";
+
 
 function Register(props) {
+	const history = useHistory();
 
 	const [details, setDetails] = useState({ name:"" ,email:"", password:""});
 	const [user,setUser] = useState({name:"", email:"", password:""});
 	const [error, setError] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState({verify:""})
-	
 
 	const handleSubmitClick = (e) => {
 		e.preventDefault();
 		if (details.password === confirmPassword.verify) {
 			sendDetailsToServer();
+			history.push('/Loginform')
 		} else {
+			alert('Passwords do not match')
 			console.log("Passwords do not match")
 		}
 	}
@@ -64,7 +69,7 @@ function Register(props) {
 										<i class="fas fa-user"> </i>
 									</span>
 								</div>
-								<input type="text" class="form-control" placeholder="user name" value={details.name} onChange={e=> {setDetails({...details, name: e.target.value}) }} value = {details.name} />
+								<input type="text" class="form-control" placeholder="Name" value={details.name} onChange={e=> {setDetails({...details, name: e.target.value}) }} value = {details.name} />
 							</div>
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
