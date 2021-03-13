@@ -13,6 +13,8 @@ const schemaLogin = {
     password: Joi.string().min(5).max(255).required()
 };
 
+
+
 class User {
     constructor() {
         this.schema = new mongoose.Schema({
@@ -52,10 +54,10 @@ class User {
     }
 
     async insertUser(name, email, password) {
-        const insertDocument = {name: name, email: email, password: password};
         const salt = await bcrypt.genSalt(10);
         password = await bcrypt.hash(password, salt);
-        await this.userModel.create({name: name, email: email, password: password})
+        const insertDocument = {name: name, email: email, password: password};
+        await this.userModel.create(insertDocument)
         return insertDocument;
     }
 }
