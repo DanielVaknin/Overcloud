@@ -6,7 +6,6 @@ const cloud = require("./api/cloud");
 const auth = require("./api/auth");
 const express = require("express");
 const app = express();
-const http = require("http");
 const cors = require("cors");
 const uri =
   "mongodb+srv://admin:HMQrrUjrqpnYNJ4R@cluster0.0d9xj.mongodb.net/" +
