@@ -17,14 +17,14 @@ router.post('/login', async (req, res) => {
     //  Now find the user by their email address
     let userLogin = await user.checkIfUserExist(req.body.email);
     if (!userLogin) {
-        return res.status(400).send('Incorrect email or password.');
+        return res.status(400).send('Incorrect email.');
     }
 
     // Then validate the Credentials in MongoDB match
     // those provided in the request
     const validPassword = await bcrypt.compare(req.body.password, userLogin.password);
     if (!validPassword) {
-        return res.status(400).send('Incorrect email or password.');
+        return res.status(400).send('Incorrect password.');
     }
     const token = jwt.sign({ _id: userLogin._id }, 'PrivateKey');
     res.header('x-auth-token', token).send(_.pick(userLogin, ['_id', 'name', 'email']));
