@@ -1,6 +1,8 @@
-import Loginform from './components/Loginform';
 import React, { useState } from 'react';
+import Loginform from './components/Loginform';
 import Register from './components/Register';
+import AddCloudAccount from './components/AddCloudAccount';
+import CloudAccounts from './components/CloudAccounts';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -24,6 +26,8 @@ export default function App() {
           <Switch>
             <Route path="/Loginform" render={() => <Loginform setConnectedUser={(user) => setConnectedUser(user)} />}  />
             <Route path="/Register" component={() => <Register />} />
+            <Route path="/AddCloudAccount" component={() => <AddCloudAccount />} />
+            <Route path="/CloudAccounts" component={() => <CloudAccounts />} />
             <Route path="/Dashboard" component={() => <Dashboard />} />
           </Switch>
         </div>

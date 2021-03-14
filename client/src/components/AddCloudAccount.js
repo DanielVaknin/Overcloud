@@ -1,44 +1,36 @@
 import React, { useState } from "react";
-import "./Register.css";
+import "./AddCloudAccount.css";
 import axios from "axios";
 //import history from '../History';
 import { useHistory } from "react-router-dom";
 
 
-function Register(props) {
+function AddCloudAccount(props) {
 	const history = useHistory();
 
-	const [details, setDetails] = useState({ name: "", email: "", password: "" });
-	const [user, setUser] = useState({ name: "", email: "", password: "" });
+	const [details, setDetails] = useState({ displayName: "", cloudProvider: "", accessKey: "", secretKey: "" });
+	//const [user, setUser] = useState({ name: "", email: "", password: "" });
 	const [error, setError] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState({ verify: "" })
 
 	const handleSubmitClick = (e) => {
 		e.preventDefault();
-		if (details.password === confirmPassword.verify) {
-			sendDetailsToServer();
-		} else {
-			alert('Passwords do not match')
-			console.log("Passwords do not match")
-		}
+		sendDetailsToServer();
+		// if (!error)
+		// 	history.push('/CloudAccounts')
 	}
 
 
 	const sendDetailsToServer = async () => {
 		console.log(details);
-		await axios.post('http://localhost:8080/api/users/register', details)
+		await axios.post('http://localhost:8080/api/cloud/addCloudAccount', details)
 			.then(response => {
 				console.log(response)
-				setUser({
-					name: response.data.name,
-					email: response.data.email,
-
-				})
-				history.push('/Loginform')
+				history.push('/CloudAccounts')
 			}).catch(error => {
 				if (error.response.status === 400) {
-					setError("error cannot register");
-					console.log("error register", error)
+					alert(error.response.data);
+					setError(error.response.data);
+					console.log(error.response.data)
 				}
 
 			});
@@ -46,7 +38,7 @@ function Register(props) {
 
 	return (
 		<form onSubmit={handleSubmitClick}>
-			<title> Register Page </title>
+			<title> Add Cloud Account Page</title>
 			<link
 				rel="stylesheet"
 				href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -64,7 +56,7 @@ function Register(props) {
 				<div className="d-flex justify-content-center h-100">
 					<div className="card">
 						<div className="card-header">
-							<h3> Register </h3>{" "}
+							<h3> Add Cloud Account </h3>{" "}
 						</div>
 						<div class="card-body">
 							<div class="input-group form-group">
@@ -73,7 +65,7 @@ function Register(props) {
 										<i class="fas fa-user"> </i>
 									</span>
 								</div>
-								<input type="text" class="form-control" placeholder="Name" value={details.name} onChange={e => { setDetails({ ...details, name: e.target.value }) }} value={details.name} />
+								<input type="text" class="form-control" placeholder="Display Name" value={details.displayName} onChange={e => { setDetails({ ...details, displayName: e.target.value }) }} />
 							</div>
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
@@ -81,7 +73,7 @@ function Register(props) {
 										<i class="fas fa-envelope"> </i>
 									</span>
 								</div>
-								<input type="" class="form-control" placeholder="Email" value={details.email} onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email} />
+								<input type="text" class="form-control" placeholder="Cloud Provider" value={details.cloudProvider} onChange={e => setDetails({ ...details, cloudProvider: e.target.value })} />
 							</div>
 
 							<div class="input-group form-group">
@@ -90,7 +82,7 @@ function Register(props) {
 										<i class="fas fa-key"> </i>
 									</span>
 								</div>
-								<input type="password" class="form-control" placeholder="Password" value={details.password} onChange={e => setDetails({ ...details, password: e.target.value })} value={details.password} />
+								<input type="text" class="form-control" placeholder="Access Key" value={details.accessKey} onChange={e => setDetails({ ...details, accessKey: e.target.value })} />
 							</div>
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
@@ -98,10 +90,10 @@ function Register(props) {
 										<i class="fas fa-key"> </i>
 									</span>
 								</div>
-								<input type="password" class="form-control" placeholder="Verify password" value={confirmPassword} onChange={e => setConfirmPassword({ ...confirmPassword, verify: e.target.value })} value={confirmPassword.verify} />
+								<input type="text" class="form-control" placeholder="Secret Key" value={details.secretKey} onChange={e => setDetails({ ...details, secretKey: e.target.value })} />
 							</div>
 							<div class="form-group">
-								<input type="submit" value="Sign Up" class="btn float-right login_btn" onClick={handleSubmitClick} />
+								<input type="submit" value="Add" class="btn float-right login_btn" onClick={handleSubmitClick} />
 							</div>
 						</div>
 					</div>
@@ -110,4 +102,4 @@ function Register(props) {
 		</form>
 	);
 }
-export default Register;
+export default AddCloudAccount;

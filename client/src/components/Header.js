@@ -33,23 +33,23 @@ const Header = (props) => {
             isLoggedIn ?
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <Link to='/addCloudAccount' className="nav-link">Add Cloud Account</Link>
+                  <Link to='/AddCloudAccount' className="nav-link">Add Cloud Account</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to='/cloudAccounts' className="nav-link">Cloud Accounts</Link>
+                  <Link to='/CloudAccounts' className="nav-link">Cloud Accounts</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to='/recommendations' className="nav-link">Recommendations</Link>
+                  <Link to='/Recommendations' className="nav-link">Recommendations</Link>
                 </li>
               </ul> : <div></div>
           }
           {
             !isLoggedIn ? <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to='/register' className="nav-link">Register</Link>
+                <Link to='/Register' className="nav-link">Register</Link>
               </li>
               <li className="nav-item">
-                <Link to='/loginform' className="nav-link">Login</Link>
+                <Link to='/Loginform' className="nav-link">Login</Link>
               </li></ul>
               : <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
