@@ -61,5 +61,4 @@ class User {
         return insertDocument;
     }
 }
-const user = new User();
-module.exports = user
+module.exports = new User();
