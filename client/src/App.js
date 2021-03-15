@@ -3,6 +3,8 @@ import Loginform from './components/Loginform';
 import Register from './components/Register';
 import AddCloudAccount from './components/AddCloudAccount';
 import CloudAccounts from './components/CloudAccounts';
+import Recommendations from './components/Recommendations';
+import RecommendationDetails from './components/RecommendationDetails';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -13,7 +15,6 @@ import { useHistory } from "react-router-dom";
 export default function App() {
   const history = useHistory();
   const [connectedUser, setConnectedUser] = useState(JSON.parse(localStorage.getItem("user")))
-
   
   return (
     <BrowserRouter  history={history}>
@@ -28,6 +29,8 @@ export default function App() {
             <Route path="/Register" component={() => <Register />} />
             <Route path="/AddCloudAccount" component={() => <AddCloudAccount />} />
             <Route path="/CloudAccounts" component={() => <CloudAccounts />} />
+            <Route path="/:cloudAccountId/Recommendations" component={() => <Recommendations />} />
+            <Route path="/:cloudAccountId/Recommendations/:recommendationId" component={() => <RecommendationDetails />} />
             <Route path="/Dashboard" component={() => <Dashboard />} />
           </Switch>
         </div>

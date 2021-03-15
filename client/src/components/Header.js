@@ -38,9 +38,9 @@ const Header = (props) => {
                 <li className="nav-item">
                   <Link to='/CloudAccounts' className="nav-link">Cloud Accounts</Link>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to='/Recommendations' className="nav-link">Recommendations</Link>
-                </li>
+                </li> */}
               </ul> : <div></div>
           }
           {

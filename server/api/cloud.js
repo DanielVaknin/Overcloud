@@ -41,19 +41,26 @@ router.post('/addAccount', async (req, res) => {
 });
 
 router.get('/accounts', async (req, res) => {
-    const result = await cloudAccount.getCloudAccounts();
-    res.send(result)
+    const accounts = await cloudAccount.getCloudAccounts();
+    res.send(accounts)
 });
 
 router.get("/:cloudId/recommendations", async (req, res) => {
+    console.log(req.params)
     const cloudId = req.params.cloudId;
+    console.log(cloudId)
     request.get(
         `http://127.0.0.1:5000/recommendations?cloud_account=${cloudId}`,
         function (error, response) {
             if (!error && response.statusCode === 200) {
                 console.log('SUCCEED!');
+                res.send(response.body)
             }
-            res.send(response.body)
+            if (error && response.statusCode === 404) {
+                console.log('ERROR!');
+                res.send(error);
+            }
+            
         }
     );
 });

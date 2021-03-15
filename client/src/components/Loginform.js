@@ -36,10 +36,9 @@ function Loginform(props) {
 				setTimeout(() => {
 					history.push('./Dashboard')
 				}, 200);
-				
-
 			}
 			).catch(error => {
+				console.log(error);
 				if (error.response.status === 400){
 				setError("user doesn't exist");
 				alert(error)
