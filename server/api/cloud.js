@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const request = require('request');
 
-router.post('/addCloudAccount', async (req, res) => {
+router.post('/addAccount', async (req, res) => {
 
     // First Validate The Request
     const { error } = cloudAccount.validateCloudAccount(req.body);
@@ -40,5 +40,35 @@ router.post('/addCloudAccount', async (req, res) => {
     }
 });
 
+router.get('/accounts', async (req, res) => {
+    const result = await cloudAccount.getCloudAccounts();
+    res.send(result)
+});
 
+router.get("/:cloudId/recommendations", async (req, res) => {
+    const cloudId = req.params.cloudId;
+    request.get(
+        `http://127.0.0.1:5000/recommendations?cloud_account=${cloudId}`,
+        function (error, response) {
+            if (!error && response.statusCode === 200) {
+                console.log('SUCCEED!');
+            }
+            res.send(response.body)
+        }
+    );
+});
+
+router.get("/:cloudId/recommendations/:recommendId", async (req, res) => {
+    const cloudId = req.params.cloudId;
+    const recommendId = req.params.recommendId;
+    request.get(
+        `http://127.0.0.1:5000/recommendations?cloud_account=${cloudId}&recommendation=${recommendId}`,
+        function (error, response) {
+            if (!error && response.statusCode === 200) {
+                console.log('SUCCEED!');
+            }
+            res.send(response.body)
+        }
+    );
+});
 module.exports = router;

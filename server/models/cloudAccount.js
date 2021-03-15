@@ -56,6 +56,10 @@ class CloudAccount {
             secretKey: secretKey };
         return await this.cloudModel.create(insertDocument)
     }
+
+    async getCloudAccounts() {
+        return this.cloudModel.find();
+    }
 }
 
 const cloudAccount = new CloudAccount();
