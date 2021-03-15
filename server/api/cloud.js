@@ -1,7 +1,7 @@
 const cloudAccount = require('../models/cloudAccount');
 const express = require('express');
 const router = express.Router();
-const recommendaionService = require("../services/recommendations");
+const request = require('request');
 
 router.post('/addAccount', async (req, res) => {
 
@@ -25,8 +25,18 @@ router.post('/addAccount', async (req, res) => {
         console.log(addAccount._id);
 
         //Send the cloudAccount to python service to create recommnedations
-        var result = recommendaionService.scan('http://127.0.0.1:5000/recommends/scan',addAccount._id);
-        res.send(result);
+
+        request.post(
+            'http://127.0.0.1:5000/recommends/scan',
+            { json: { identity: addAccount._id } },
+            function (error, response, body) {
+                console.log(response.body);
+                if (!error && response.statusCode === 200) {
+                    console.log('SUCCEED!');
+                }
+                res.send(response.body)
+            }
+        );
     }
 });
 
