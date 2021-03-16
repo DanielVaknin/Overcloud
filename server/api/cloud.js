@@ -27,8 +27,8 @@ router.post('/addAccount', async (req, res) => {
         //Send the cloudAccount to python service to create recommnedations
 
         request.post(
-            'http://127.0.0.1:5000/recommends/scan',
-            { json: { identity: addAccount._id } },
+            'http://127.0.0.1:5000/recommendations/scan',
+            { json: { cloud_account: addAccount._id } },
             function (error, response, body) {
                 console.log(response.body);
                 if (!error && response.statusCode === 200) {
