@@ -2,6 +2,7 @@ html,body{
     background-image: url('https://wallpaperaccess.com/full/1567666.png');
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     height: 100%;
     font-family: 'Numans', sans-serif;
     }
@@ -66,11 +67,12 @@ html,body{
     margin-right: 5px;
     }
     
-    .login_btn{
+    .login_btn {
     color: black;
     background-color: #85b1db;
     width: 100px;
     }
+
     
     .login_btn:hover{
     color: black;

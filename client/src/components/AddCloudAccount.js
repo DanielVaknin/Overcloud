@@ -22,7 +22,7 @@ function AddCloudAccount(props) {
 
 	const sendDetailsToServer = async () => {
 		console.log(details);
-		await axios.post('http://localhost:8080/api/cloud/addCloudAccount', details)
+		await axios.post('http://localhost:8080/api/cloud/addAccount', details)
 			.then(response => {
 				console.log(response)
 				history.push('/CloudAccounts')

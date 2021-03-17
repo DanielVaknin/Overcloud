@@ -5,32 +5,45 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
+import Card from 'react-bootstrap/Card';
+import CardGroup from 'react-bootstrap/CardGroup';
 
 
 function RecommendationDetails(props) {
-    console.log('HELLO')
     const history = useHistory();
 
 
     const [recommendationDetails, setRecommendationDetails] = useState([]);
+    const [recommendationName, setRecommendationName] = useState("");
+    const [recommendationDetailsKeys, setRecommendationDetailsKeys] = useState([]);
     //const [columns, setColumns] = useState([]);
     //const [columnsToHide, setColumnsToHide] = useState(["_id"]);
     const [error, setError] = useState("");
     var cloudId = history.location.cloudId
     var recommendationId = history.location.recommendationId
 
-    const goBack = (event) => {
+
+    const goBack = () => {
         history.push(`/${cloudId}/Recommendations`);
     }
 
-    
+
     useEffect(() => {
 
         axios.get(`http://localhost:8080/api/cloud/${cloudId}/recommendations/${recommendationId}`).then(
             res => {
                 console.log(res.data)
-                setRecommendationDetails(res.data.recommendations);
+                console.log(res.data.recommendations)
+                setRecommendationDetails(res.data.recommendations[0].data);
+                setRecommendationName(res.data.recommendations[0].name);
+                var detailsJson = (res.data.recommendations[0].data[0]);
+                let detailsKeys = Object.keys(detailsJson);
+                detailsKeys.push("operation");
+                setRecommendationDetailsKeys(detailsKeys);
+                //setRecommendationDetailsKeys(Object.keys(detailsJson));
                 console.log(res.data.recommendations);
+                //console.log(detailsJson);
+                //console.log(recommendationDetailsKeys);
                 //mapDynamicColumns();
                 // if (res.data.recommendations)
                 //     SetStatus(res.data.status);
@@ -38,6 +51,66 @@ function RecommendationDetails(props) {
             }
         )
     }, [])
+
+    // const removeData = (id) => {
+
+    //     axios.delete(`${URL}/${id}`).then(res => {
+    //         const del = employees.filter(employee => id !== employee.id)
+    //         setEmployees(del)
+    //     })
+    // }
+
+    const renderHeader = () => {
+        //var detailsJson = (recommendationDetails[0]);
+        let headerElement = recommendationDetailsKeys;
+
+        
+        console.log(headerElement);
+
+        return headerElement.map((key, index) => {
+            return <th key={index}>{key.toUpperCase()}</th>
+        })
+    }
+
+    const renderBody = () => {
+        console.log(recommendationDetails);
+        return recommendationDetails.map((item, index) => {
+            return (
+                <tr key={index}>
+                    {
+                        Object.keys(item).map((key, index) => {
+                            return (
+                                <td>{item[key]}</td>
+                            )
+
+                        })
+
+                    }
+                    <td className='opration'>
+                        <Button className='button'>Remediate</Button>
+                    </td>
+                </tr>
+            )
+        })
+    }
+
+    return (
+        <div class="font">
+         <Button onClick={goBack}>Back</Button>
+            <h1 id='title'>{recommendationName} to delete</h1>
+            <Table striped bordered>
+                <thead class="font">
+                    <tr>{renderHeader()}</tr>
+                </thead>
+                <tbody class="font">
+                    {renderBody()}
+                </tbody>
+            </Table>
+        </div>
+    )
+
+
+
 
     // const mapDynamicColumns = () => {
     //     let tempColumns = [];
@@ -141,33 +214,68 @@ function RecommendationDetails(props) {
     // };
 
 
+    //console.log(recommendationDetails);
+    // return (
+    //     // <Table striped bordered hover>
+    //     //     <thead>
+    //     //         <tr>
+    //     //             <th scope="col">Name</th>
+    //     //             <th scope="col">Collect Time</th>
+    //     //         </tr>
+    //     //     </thead>
+    //     //     <tbody>
+    //     //         {
+    //     //             recommendationDetails.map((item, index) => {
+    //     //                 return (
+    //     //                     Object.keys(item).map((key, index) => {
+    //     //                         return (
+    //     //                             <div key={index}>
+    //     //                                 <h8>{key} : {item[key]}</h8>
+    //     //                             </div>
+    //     //                         )
 
-    return (
-        <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Collect Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    recommendationDetails.map((detail, index) => {
-                        return (
-                            Object.keys(detail.object).map((key, index) => {
-                                return (
-                                    <div key={index}>
-                                        <h1>{key} : {detail.object[key]}</h1>
-                                        <Button type="button" id="goBack" variant="primary" style={{ position: 'absolute' }} onClick={(event) => goBack(event)}>Back</Button>
-                                    </div>
-                                )
-                            })
-                        )
-                    })
+    //     //                     })
+    //     //                 )
+    //     //             })
 
-                }
-            </tbody>
-        </Table>
-    );
+    //     //         }
+    //     //     </tbody>
+    //     // </Table>
+
+    //     <div class="font" >
+    //         <h2>{recommendationName} to delete</h2>
+    //         <Button type="button" id="goBack" variant="primary" style={{ position: 'absolute' }} onClick={goBack}>Back</Button>
+    //         {/* <CardGroup> */}
+    //         {
+    //             recommendationDetails.map((item, index) => {
+    //                 return (
+    //                     <Card style={{ width: '18rem' }}>
+    //                         <Card.Body>
+    //                             {/* <Card.Title>Display Name: {account.displayName}</Card.Title> */}
+    //                             <Card.Text key={index}>
+    //                                 <ul>
+    //                                     {
+
+    //                                         Object.keys(item).map((key, index) => {
+    //                                             return (
+
+    //                                                 <p>{key} : {item[key]}</p>
+
+    //                                             )
+    //                                         })
+    //                                     }
+    //                                 </ul>
+    //                             </Card.Text>
+    //                             <Button type="button" variant="primary" style={{ position: 'absolute' }} >Remidiate</Button>
+    //                         </Card.Body>
+    //                     </Card>
+    //                 )
+    //             })
+    //         }
+    //         {/* </CardGroup> */}
+
+    //     </div >
+
+    // );
 }
 export default RecommendationDetails;

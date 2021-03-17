@@ -101,7 +101,7 @@ function Register(props) {
 								<input type="password" class="form-control" placeholder="Verify password" value={confirmPassword} onChange={e => setConfirmPassword({ ...confirmPassword, verify: e.target.value })} value={confirmPassword.verify} />
 							</div>
 							<div class="form-group">
-								<input type="submit" value="Sign Up" class="btn float-right login_btn" onClick={handleSubmitClick} />
+								<input type="submit" value="Sign Up" class="btn float-right login_btn" style={{backgroundColor: "#85b1db"}} onClick={handleSubmitClick} />
 							</div>
 						</div>
 					</div>

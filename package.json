@@ -6,7 +6,10 @@
   "scripts": {
     "server": "cd server && npm start",
     "client": "cd client && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server-install": "cd server && npm install",
+    "client-install": "cd client && npm install",
+    "install-all": "concurrently \"npm install\" \"npm run server-install\" \"npm run client-install\""
   },
   "repository": {
     "type": "git",

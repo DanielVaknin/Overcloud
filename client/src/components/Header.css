@@ -10,3 +10,11 @@
     width: 400px;
     height: 70px;
    }
+
+   .header-right {
+    float: right;
+  }
+
+  .links {
+    color: white;
+}
