@@ -58,6 +58,19 @@ class CloudAccount {
         return await this.cloudModel.create(insertDocument)
     }
 
+    async deleteCloudAccount(accountId) {
+        await this.cloudModel.findOneAndDelete({ _id: accountId },
+            function (err) {
+            if(err)
+            {
+                console.log(err);
+                return false;
+            }
+            console.log("Successful deletion");
+            return true;
+          });
+    }
+
     async getCloudAccounts() {
         return this.cloudModel.find();
     }

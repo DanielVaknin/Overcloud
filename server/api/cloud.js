@@ -40,6 +40,11 @@ router.post('/addAccount', async (req, res) => {
     }
 });
 
+router.post('/deleteAccount', async (req, res) => {
+    var deletionResult = await  cloudAccount.deleteCloudAccount(req.body._id);
+    res.send(deletionResult);
+});
+
 router.get('/accounts', async (req, res) => {
     const accounts = await cloudAccount.getCloudAccounts();
     res.send(accounts)
