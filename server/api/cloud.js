@@ -1,86 +1,51 @@
-const cloudAccount = require('../models/cloudAccount');
+const Cloud = require('../controllers/cloud');
 const express = require('express');
 const router = express.Router();
 const request = require('request');
+const { validateRequest } = require('../middlewares/SchemaValidator');
+const catchAsync = require('../utils/catchAsync');
+const {schemaCloudAccount} = require('../schemas');
 
-router.post('/addAccount', async (req, res) => {
+router.route('/')
+    .post(validateRequest(schemaCloudAccount), catchAsync(Cloud.addCloudAccount))
+    .get(catchAsync(Cloud.getCloudAccounts))
+router.route('/:id')
+    .get(catchAsync(Cloud.getCloudAccountById))
+    .delete(catchAsync(Cloud.deleteCloudAccount))
 
-    // First Validate The Request
-    const { error } = cloudAccount.validateCloudAccount(req.body);
-    if (error) {
-        return res.status(400).send(error.details[0].message);
-    }
 
-    // Check if this user already exists
-    let addAccount = await cloudAccount.checkIfCloudAccountExist(req.body.accessKey);
-    if (addAccount) {
-        return res.status(400).send('That cloud account already exisits!');
-    } else {
-        // Insert the new user if they do not exist yet
-        addAccount = await cloudAccount.insertCloudAccount(
-            req.body.displayName,
-            req.body.cloudProvider,
-            req.body.accessKey,
-            req.body.secretKey)
-        console.log(addAccount._id);
-
-        //Send the cloudAccount to python service to create recommnedations
-
-        request.post(
-            'http://127.0.0.1:5000/recommendations/scan',
-            { json: { cloud_account: addAccount._id } },
-            function (error, response, body) {
-                console.log(response.body);
-                if (!error && response.statusCode === 200) {
-                    console.log('SUCCEED!');
-                }
-                res.send(response.body)
-            }
-        );
-    }
-});
-
-router.post('/deleteAccount', async (req, res) => {
-    var deletionResult = await  cloudAccount.deleteCloudAccount(req.body._id);
-    res.send(deletionResult);
-});
-
-router.get('/accounts', async (req, res) => {
-    const accounts = await cloudAccount.getCloudAccounts();
-    res.send(accounts)
-});
-
-router.get("/:cloudId/recommendations", async (req, res) => {
-    console.log(req.params)
-    const cloudId = req.params.cloudId;
-    console.log(cloudId)
-    request.get(
-        `http://127.0.0.1:5000/recommendations?cloud_account=${cloudId}`,
-        function (error, response) {
-            if (!error && response.statusCode === 200) {
-                console.log('SUCCEED!');
-                res.send(response.body)
-            }
-            if (error && response.statusCode === 404) {
-                console.log('ERROR!');
-                res.send(error);
-            }
-
-        }
-    );
-});
-
-router.get("/:cloudId/recommendations/:recommendId", async (req, res) => {
-    const cloudId = req.params.cloudId;
-    const recommendId = req.params.recommendId;
-    request.get(
-        `http://127.0.0.1:5000/recommendations?cloud_account=${cloudId}&recommendation=${recommendId}`,
-        function (error, response) {
-            if (!error && response.statusCode === 200) {
-                console.log('SUCCEED!');
-            }
-            res.send(response.body)
-        }
-    );
-});
+//
+// router.get("/:cloudId/recommendations", async (req, res) => {
+//     console.log(req.params)
+//     const cloudId = req.params.cloudId;
+//     console.log(cloudId)
+//     request.get(
+//         `http://127.0.0.1:5000/recommendations?cloud_account=${cloudId}`,
+//         function (error, response) {
+//             if (!error && response.statusCode === 200) {
+//                 console.log('SUCCEED!');
+//                 res.send(response.body)
+//             }
+//             if (error && response.statusCode === 404) {
+//                 console.log('ERROR!');
+//                 res.send(error);
+//             }
+//
+//         }
+//     );
+// });
+//
+// router.get("/:cloudId/recommendations/:recommendId", async (req, res) => {
+//     const cloudId = req.params.cloudId;
+//     const recommendId = req.params.recommendId;
+//     request.get(
+//         `http://127.0.0.1:5000/recommendations?cloud_account=${cloudId}&recommendation=${recommendId}`,
+//         function (error, response) {
+//             if (!error && response.statusCode === 200) {
+//                 console.log('SUCCEED!');
+//             }
+//             res.send(response.body)
+//         }
+//     );
+// });
 module.exports = router;
