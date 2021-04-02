@@ -36,7 +36,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //app.use("/api/users", users);
-app.use("/api/cloud", cloud);
+app.use("/api/cloud-accounts", cloud);
 app.use("/api/auth", auth);
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
