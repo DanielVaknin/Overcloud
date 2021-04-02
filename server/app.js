@@ -2,7 +2,7 @@ const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 const mongoose = require("mongoose");
 //const users = require("./api/users");
-const cloud = require("./api/cloud");
+const cloudAccount = require("./api/cloudAccount");
 const auth = require("./api/auth");
 const express = require("express");
 const app = express();
@@ -36,7 +36,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //app.use("/api/users", users);
-app.use("/api/cloud-accounts", cloud);
+app.use("/api/cloud-accounts", cloudAccount);
 app.use("/api/auth", auth);
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;

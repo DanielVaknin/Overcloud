@@ -34,4 +34,4 @@ schema.statics.checkIfCloudAccountExist = function(accessKey) {
     return this.findOne({ accessKey: accessKey });
 };
 
-module.exports = mongoose.model('Cloud', schema);
+module.exports = mongoose.model('cloudAccount', schema);
