@@ -1,0 +1,11 @@
+import React, { useState, useEffect, Component } from "react";
+//import "./Recommendations.css";
+import axios from "axios";
+//import history from '../History';
+import { useHistory, useParams } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+// import Table from 'react-bootstrap/Table';
+import {Table} from 'antd';
+import Card from 'react-bootstrap/Card';
+import CardGroup from 'react-bootstrap/CardGroup';
+import { batch } from "react-redux";

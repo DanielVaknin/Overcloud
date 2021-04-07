@@ -31,9 +31,9 @@ export default function App() {
             <Route path="/Loginform" render={() => <Loginform setConnectedUser={(user) => setConnectedUser(user)} />} />
             <Route path="/Register" component={() => <Register />} />
             <Route path="/AddCloudAccount" component={() => <AddCloudAccount />} />
-            <Route path="/CloudAccounts" component={() => <CloudAccounts />} />
-            <Route path="/:cloudAccountId/Recommendations" render={() => <Recommendations />} />
-            <Route path="/:cloudAccountId/Recommendation/:recommendationId" component={() => <RecommendationDetails />} />
+            <Route path="/CloudAccounts" component={CloudAccounts} />
+            <Route path="/Recommendations/:cloudAccountId" component={Recommendations} />
+            <Route path="/:cloudAccountId/Recommendation/:recId" component={() => <RecommendationDetails />} />
             <Route path="/Dashboard" component={() => <Dashboard />} />
           </Switch>
         </div>

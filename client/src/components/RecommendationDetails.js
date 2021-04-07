@@ -1,12 +1,12 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 //import "./Recommendations.css";
 import axios from "axios";
 //import history from '../History';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
-import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/CardGroup';
+// import Table from 'react-bootstrap/Table';
+import {Table} from 'antd';
+import { batch } from "react-redux";
 
 
 function RecommendationDetails(props) {
@@ -16,41 +16,55 @@ function RecommendationDetails(props) {
     const [recommendationDetails, setRecommendationDetails] = useState([]);
     const [recommendationName, setRecommendationName] = useState("");
     const [recommendationDetailsKeys, setRecommendationDetailsKeys] = useState([]);
+    const [recommendationId, setRecomendationId] = useState('');
+    const [cloudId, setCloudId] = useState('');
+
     //const [columns, setColumns] = useState([]);
     //const [columnsToHide, setColumnsToHide] = useState(["_id"]);
     const [error, setError] = useState("");
-    var cloudId = history.location.cloudId
-    var recommendationId = history.location.recommendationId
 
+    const { recId, cloudAccountId } = useParams();
 
     const goBack = () => {
-        history.push(`/${cloudId}/Recommendations`);
+        history.push(`/Recommendations/${cloudId}`);
     }
+    useEffect(() => {
+        batch(() => {
+            setRecomendationId(recId);
+            setCloudId(cloudAccountId)
+        })
 
+    }, [])
 
     useEffect(() => {
-
-        axios.get(`http://localhost:8080/api/cloud/${cloudId}/recommendations/${recommendationId}`).then(
-            res => {
-                console.log(res.data)
-                console.log(res.data.recommendations)
-                setRecommendationDetails(res.data.recommendations[0].data);
-                setRecommendationName(res.data.recommendations[0].name);
-                var detailsJson = (res.data.recommendations[0].data[0]);
-                let detailsKeys = Object.keys(detailsJson);
-                detailsKeys.push("operation");
-                setRecommendationDetailsKeys(detailsKeys);
-                //setRecommendationDetailsKeys(Object.keys(detailsJson));
-                console.log(res.data.recommendations);
-                //console.log(detailsJson);
-                //console.log(recommendationDetailsKeys);
-                //mapDynamicColumns();
-                // if (res.data.recommendations)
-                //     SetStatus(res.data.status);
-                // setDates(res.data.dates);
-            }
-        )
-    }, [])
+        if (!!recommendationId) {//if exist (!!)
+            axios.get(`http://localhost:8080/api/cloud/${cloudId}/recommendations/${recommendationId}`).then(
+                res => {
+                    console.log(res.data)
+                    console.log(res.data.recommendations)
+                    setRecommendationDetails(res.data.recommendations[0].data);
+                    setRecommendationName(res.data.recommendations[0].name);
+                    var detailsJson = (res.data.recommendations[0].data[0]);
+                    let detailsKeys = Object.keys(detailsJson);
+                    //detailsKeys.push("operation");
+                    const columns = detailsKeys.map((item) =>({
+                        title:item.toLocaleUpperCase(),
+                        dataIndex:item,
+                        key:item
+                    }))
+                    let operation = {    
+                            title: 'Action',
+                            dataIndex: '',
+                            key: 'action',
+                            render: () => <Button>Remediate</Button>,
+                          }
+                    columns.push(operation)
+                    setRecommendationDetailsKeys(columns);
+                    console.log(columns);
+                }
+            )
+        }
+    }, [recommendationId])
 
     // const removeData = (id) => {
 
@@ -60,62 +74,63 @@ function RecommendationDetails(props) {
     //     })
     // }
 
-    const renderHeader = () => {
-        //var detailsJson = (recommendationDetails[0]);
-        let headerElement = recommendationDetailsKeys;
+    // const renderHeader = () => {
+    //     //var detailsJson = (recommendationDetails[0]);
+    //     let headerElement = recommendationDetailsKeys;
 
-        
-        console.log(headerElement);
 
-        return headerElement.map((key, index) => {
-            return <th key={index}>{key.toUpperCase()}</th>
-        })
-    }
+    //     console.log(headerElement);
 
-    const renderBody = () => {
-        console.log(recommendationDetails);
-        return recommendationDetails.map((item, index) => {
-            return (
-                <tr key={index}>
-                    {
-                        Object.keys(item).map((key, index) => {
-                            return (
-                                <td>{item[key]}</td>
-                            )
+    //     return headerElement.map((key, index) => {
+    //         return <th key={index}>{key.toUpperCase()}</th>
+    //     })
+    // }
 
-                        })
+    // const renderBody = () => {
+    //     console.log(recommendationDetails);
+    //     return recommendationDetails.map((item, index) => {
+    //         return (
+    //             <tr key={index}>
+    //                 {
+    //                     Object.keys(item).map((key, index) => {
+    //                         return (
+    //                             <td>{item[key]}</td>
+    //                         )
 
-                    }
-                    <td className='opration'>
-                        <Button className='button'>Remediate</Button>
-                    </td>
-                </tr>
-            )
-        })
-    }
+    //                     })
 
+    //                 }
+    //                 <td className='operation'>
+    //                     <Button className='button'>Remediate</Button>
+    //                 </td>
+    //             </tr>
+    //         )
+    //     })
+    // }
+    // console.log({recommendationDetails,recommendationDetailsKeys});
     return (
         <div class="font">
-         <Button onClick={goBack}>Back</Button>
-            <h1 id='title'>{recommendationName} to delete</h1>
-            <Table striped bordered>
-                <thead class="font">
-                    <tr>{renderHeader()}</tr>
-                </thead>
-                <tbody class="font">
-                    {renderBody()}
-                </tbody>
-            </Table>
+            <Button onClick={goBack}>Back</Button>
+            <h1 class="font" id='title'>{recommendationName} to delete</h1>
+           {recommendationDetailsKeys.length && <Table dataSource={recommendationDetails} columns={recommendationDetailsKeys}/>} 
         </div>
     )
-
-
-
-
+    
+    
+    {/* <Table striped bordered>
+        <thead class="font">
+            <tr>{renderHeader()}</tr>
+        </thead>
+        <tbody class="font">
+            {renderBody()}
+        </tbody>
+    </Table> */}
+    
+    
     // const mapDynamicColumns = () => {
-    //     let tempColumns = [];
-    //     recommendationDetails.forEach((detail) => {
-    //         Object.keys(detail).forEach((col) => {
+        //     let tempColumns = [];
+        //     recommendationDetails.forEach((detail) => {
+            //         Object.keys(detail).forEach((col) => {
     //             if (!tempColumns.includes(col)) {
     //                 tempColumns.push(col);
     //             }
