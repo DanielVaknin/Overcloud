@@ -1,20 +1,19 @@
-
 .Header {
     position: relative;
     height: 67px;
     width: 100%;
     background-color: black;
-   }
+}
 
-   .logo{
+.logo {
     width: 400px;
     height: 70px;
-   }
+}
 
-   .header-right {
+.header-right {
     float: right;
-  }
+}
 
-  .links {
+.links {
     color: white;
 }
