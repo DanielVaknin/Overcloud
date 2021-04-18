@@ -7,25 +7,26 @@ import Table from 'react-bootstrap/Table';
 function RecommendationDetails(props) {
     const history = useHistory();
 
-
     const [recommendationDetails, setRecommendationDetails] = useState([]);
     const [recommendationName, setRecommendationName] = useState("");
     const [recommendationDetailsKeys, setRecommendationDetailsKeys] = useState([]);
     //const [columns, setColumns] = useState([]);
     //const [columnsToHide, setColumnsToHide] = useState(["_id"]);
-    var cloudId = history.location.cloudId
-    var recommendationId = history.location.recommendationId
+    var cloudId = history.location.state['cloudId']
+    var recommendationType = history.location.state['recommendationType']
 
     const goBack = () => {
-        history.push(`/${cloudId}/Recommendations`);
+        history.goBack();
     }
 
     useEffect(() => {
-
-        axios.get(`http://localhost:8080/api/cloud/${cloudId}/recommendations/${recommendationId}`).then(
+        axios.get(`http://localhost:5000/recommendations`, {
+            params: {
+                cloud_account: cloudId,
+                recommendation_type: recommendationType
+            }
+        }).then(
             res => {
-                console.log(res.data)
-                console.log(res.data.recommendations)
                 setRecommendationDetails(res.data.recommendations[0].data);
                 setRecommendationName(res.data.recommendations[0].name);
                 var detailsJson = (res.data.recommendations[0].data[0]);
@@ -33,7 +34,6 @@ function RecommendationDetails(props) {
                 detailsKeys.push("operation");
                 setRecommendationDetailsKeys(detailsKeys);
                 //setRecommendationDetailsKeys(Object.keys(detailsJson));
-                console.log(res.data.recommendations);
                 //console.log(detailsJson);
                 //console.log(recommendationDetailsKeys);
                 //mapDynamicColumns();
@@ -56,16 +56,12 @@ function RecommendationDetails(props) {
         //var detailsJson = (recommendationDetails[0]);
         let headerElement = recommendationDetailsKeys;
 
-
-        console.log(headerElement);
-
         return headerElement.map((key, index) => {
             return <th key={index}>{key.toUpperCase()}</th>
         })
     }
 
     const renderBody = () => {
-        console.log(recommendationDetails);
         return recommendationDetails.map((item, index) => {
             return (
                 <tr key={index}>

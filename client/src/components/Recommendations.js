@@ -25,12 +25,14 @@ function Recommendations() {
             )
     }, [])
 
-    const details = (recommendationId) => {
-        console.log(recommendationId);
+    const details = (recommendationType) => {
+        console.log(recommendationType);
         history.push({
-            pathname: `/${cloudAccountDetails._id}/recommendation/${recommendationId}`,
-            recommendationId: recommendationId,
-            cloudId: cloudAccountDetails._id
+            pathname: `/${cloudAccountDetails._id}/recommendation/${recommendationType}`,
+            state: {
+                recommendationType: recommendationType,
+                cloudId: cloudAccountDetails._id
+            }
         });
     }
 
@@ -55,7 +57,7 @@ function Recommendations() {
                                 <td>{recommendation.collectTime}</td>
                                 <td>{recommendation.totalPrice}$</td>
                                 <td>
-                                    <Button onClick={() => details(recommendation._id.$oid)}>Details</Button>
+                                    <Button onClick={() => details(recommendation['type'])}>Details</Button>
                                 </td>
                             </tr>
                         )
