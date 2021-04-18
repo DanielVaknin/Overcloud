@@ -13,12 +13,16 @@ function Recommendations() {
 
     useEffect(() => {
         console.log(cloudAccountDetails);
-        axios.get(`http://localhost:8080/api/cloud/${cloudAccountDetails._id}/recommendations`).then(
-            res => {
-                setRecommendations(res.data.recommendations);
-                console.log(res.data.recommendations);
+        axios.get(`http://localhost:5000/recommendations`, {
+            params: {
+                cloud_account: cloudAccountDetails['_id']
             }
-        )
+        }).then(
+                res => {
+                    setRecommendations(res.data['recommendations']);
+                    console.log(res.data['recommendations']);
+                }
+            )
     }, [])
 
     const details = (recommendationId) => {
