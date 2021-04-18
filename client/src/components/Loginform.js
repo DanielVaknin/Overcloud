@@ -2,44 +2,36 @@ import {useState} from 'react';
 import './Loginform.css'
 import {Link} from "react-router-dom";
 import axios from 'axios';
-//import history from '../History';
 import {useHistory} from "react-router-dom";
 
 function Loginform(props) {
     const history = useHistory();
-    const [details, setDetails] = useState({email: "", password: ""});
+    const [details, setDetails] = useState({username: "", password: ""});
 
     const submitHandler = e => {
         e.preventDefault();
-        Login(details);
+        login(details);
     }
 
     const [error, setError] = useState("");
 
-    const Login = async (details) => {
-        console.log(details);
-        await axios.post('http://localhost:8080/api/auth/login', details)
+    const login = (details) => {
+        axios.post('http://localhost:8080/api/auth/login', details)
             .then(response => {
-                    console.log(response.data)
-                    let connectedUser = {name: response.data.name, email: response.data.email};
-                    //setUser({name: response.data.name, email: response.data.email})
-                    //setUser(connectedUser);
-                    console.log(connectedUser);
-                    props.setConnectedUser(connectedUser)
-                    localStorage.setItem("user", JSON.stringify(connectedUser));
-                    setTimeout(() => {
-                        history.push('./Dashboard')
-                    }, 200);
-                }
-            ).catch(error => {
-                console.log(error);
-                if (error.response.status === 400) {
-                    setError("user doesn't exist");
-                    alert(error)
-                }
-            });
-
+                const username = details['username'];
+                props.setConnectedUser(details['username']);
+                localStorage.setItem("user", details['username']);
+                setTimeout(() => {
+                    history.push('./Dashboard')
+                }, 200);
+            }).catch(error => {
+            if (error.response.status === 400) {
+                setError("User doesn't exist");
+                alert(error)
+            }
+        });
     }
+
     return (
         <form onSubmit={submitHandler}>
             <title>Login Page</title>
@@ -68,8 +60,8 @@ function Loginform(props) {
                                     <span className="input-group-text"><i className="fas fa-user"/></span>
                                 </div>
                                 <input type="email" className="form-control" placeholder="Email"
-                                       onChange={e => setDetails({...details, email: e.target.value})}
-                                       value={details.email}/>
+                                       onChange={e => setDetails({...details, username: e.target.value})}
+                                       value={details.username}/>
 
                             </div>
                             <div className="input-group form-group">

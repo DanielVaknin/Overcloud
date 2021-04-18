@@ -32,10 +32,10 @@ function Recommendations() {
 
 
     return (
-        <div class="font">
+        <div className="font">
             <h2>Recommendations for account {cloudAccountDetails.displayName} </h2>
             <Table striped bordered>
-                <thead class="font">
+                <thead className="font">
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Collect Time</th>
@@ -46,7 +46,7 @@ function Recommendations() {
                 {
                     recommendations.map((recommendation, index) => {
                         return (
-                            <tr class="font">
+                            <tr className="font">
                                 <td>{recommendation.name}</td>
                                 <td>{recommendation.collectTime}</td>
                                 <td>{recommendation.totalPrice}$</td>

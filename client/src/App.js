@@ -15,7 +15,7 @@ import {useHistory} from "react-router-dom";
 
 export default function App() {
     const history = useHistory();
-    const [connectedUser, setConnectedUser] = useState(JSON.parse(localStorage.getItem("user")))
+    const [connectedUser, setConnectedUser] = useState(localStorage.getItem("user"))
     //const [cloudAccountDetails, setCloudAccountDetails] = useState(JSON.parse(localStorage.getItem("cloudAccount")));
 
     return (

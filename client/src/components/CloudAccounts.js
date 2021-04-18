@@ -11,12 +11,10 @@ function CloudAccounts(props) {
     const [accounts, setAccounts] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/cloud/accounts`).then(res => {
-                console.log(res.data);
-                setAccounts(res.data);
-            }
-        )
-    }, [])
+        axios.get(`http://localhost:8080/api/cloud-accounts`)
+            .then(res => setAccounts(res.data)
+            );
+    }, []);
 
     const recommendations = (cloudAccount) => {
         console.log(cloudAccount._id);
@@ -25,7 +23,7 @@ function CloudAccounts(props) {
     }
 
     return (
-        <div class="font">
+        <div className="font">
             <h2>Cloud Accounts</h2>
             {
                 accounts.map((account, index) => {
@@ -37,7 +35,7 @@ function CloudAccounts(props) {
                                     <h6>Cloud Provider: {account.cloudProvider}</h6>
                                     <h6>Access Key: {account.accessKey}</h6>
                                 </Card.Text>
-                                <Button class="btn btn-info"
+                                <Button className="btn btn-info"
                                         onClick={() => recommendations(account)}>Recommendations</Button>
                             </Card.Body>
                         </Card>

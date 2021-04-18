@@ -87,14 +87,14 @@ function RecommendationDetails(props) {
     }
 
     return (
-        <div class="font">
+        <div className="font">
             <Button onClick={goBack}>Back</Button>
             <h1 id='title'>{recommendationName} to delete</h1>
             <Table striped bordered>
-                <thead class="font">
+                <thead className="font">
                 <tr>{renderHeader()}</tr>
                 </thead>
-                <tbody class="font">
+                <tbody className="font">
                 {renderBody()}
                 </tbody>
             </Table>
