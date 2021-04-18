@@ -102,6 +102,7 @@ function AddCloudAccount(props) {
                             </div>
                             <div className="form-group">
                                 <input type="submit" value="Add" className="btn float-right login_btn"
+                                       style={{backgroundColor: "#85b1db"}}
                                        onClick={handleSubmitClick}/>
                             </div>
                         </div>
