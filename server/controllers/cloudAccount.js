@@ -1,34 +1,50 @@
-
 const CloudAccounts = require('../models/cludAccount');
 
 module.exports.addCloudAccount = async (req, res, next) => {
     const { displayName, cloudProvider, accessKey, secretKey } = req.body;
-    let addAccount = await CloudAccounts.checkIfCloudAccountExist(accessKey);
-    if (addAccount) {
-        return res.status(400).send('That cloud account already exists!');
+    let cloudAccount = await CloudAccounts.checkIfCloudAccountExist(accessKey);
+    if (cloudAccount) {
+        return res.status(400).json({
+            "status": "error",
+            "error": "Cloud account with access key " + accessKey + " already exists"
+        });
     } else {
-        // Insert the new user if they do not exist yet
-
-        const addAccount = new CloudAccounts({displayName, cloudProvider, accessKey, secretKey})
-        await addAccount.save()
-        res.send(addAccount)
+        const cloudAccount = new CloudAccounts({displayName, cloudProvider, accessKey, secretKey})
+        await cloudAccount.save()
+        res.json(cloudAccount)
     }
 }
 
 module.exports.getCloudAccounts = async (req, res, next) => {
-    const accounts = await CloudAccounts.find();
-    res.send(accounts)
+    CloudAccounts.find(function(err, docs) {
+        if (err) return res.status(404).json({
+            "status": "error",
+            "error": "Could not get cloud accounts"
+        })
+        res.json(docs);
+    });
 }
 module.exports.getCloudAccountById = async (req, res, next) => {
     const { id } = req.params;
-    const account = await CloudAccounts.findById(id);
-    if (!account) {
-        return res.status(404).send('That cloud account Not found');
-    }
-    res.send(account)
+    CloudAccounts.findById(id, function(err, doc) {
+        if (err) return res.status(404).json({
+            "status": "error",
+            "error": "Could not find cloud account with ID: " + id
+        })
+        res.json(doc);
+    });
 }
 module.exports.deleteCloudAccount = async (req, res, next) => {
     const { id } = req.params;
-    const accounts = await CloudAccounts.findByIdAndDelete(id);
-    res.send({status: "ok"})
+    CloudAccounts.findByIdAndDelete(id, function(err, doc) {
+        console.log(doc)
+        if (err || doc === null) return res.status(404).json({
+            "status": "error",
+            "error": "Failed to delete cloud account with ID: " + id
+        })
+        return res.json({
+            "status": "ok",
+            "error": "Deleted cloud account with ID: " + id
+        });
+    });
 }
