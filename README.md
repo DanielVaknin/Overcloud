@@ -8,6 +8,7 @@ each individual component.
 To start the application, first install all `npm` dependencies.
 
 ```bash
+npm install
 npm run install-all
 ```
 
