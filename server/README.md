@@ -12,14 +12,18 @@ API for user register
 
 #### Parameters
 
-- `email` `(string: <required>)` – The Email of the user
-- `password` `(string: <required>)` – The password of the user
 - `name` `(string: <required>)` – The display name of the user
+- `email` `(string: <required>)` – The email of the user
+- `password` `(string: <required>)` – The password of the user
 
 #### Sample Payload
 
 ```json
-
+{
+  "name": "daniel",
+  "email": "daniel@gmail.com",
+  "password": "Aa123456"
+}
 ```
 
 #### Sample Request
@@ -48,7 +52,8 @@ API for user login
 
 ```json
 {
-    "status": "ok"
+  "username": "daniel@gmail.com",
+  "password": "XXXXX"
 }
 ```
 
@@ -61,17 +66,31 @@ $ curl \
     http://localhost:8080/api/auth/login
 ```
 
-### Cloud Account API
+## Cloud Account API
 
 ### List All Cloud Accounts
 
-API for list all cloud accounts
+API getting information of cloud accounts
 
 | Method | Path             |
 | :----- | :--------------- |
-| `GET` | `/api/cloud-accounts/` |
+| `GET` | `/api/cloud-accounts/<id>` |
 
-#### Sample Payload
+#### Parameters
+
+- `id` `(string: "")` – The id of the cloud account
+
+#### Sample Request
+
+```shell-session
+# All cloud accounts
+$ curl http://localhost:8080/api/cloud-accounts
+
+# Specific cloud account
+$ curl http://localhost:8080/api/cloud-accounts/60526ffb3a611c4670f2a38a
+```
+
+#### Sample Response
 
 ```json
 [
@@ -86,14 +105,6 @@ API for list all cloud accounts
 ]
 ```
 
-#### Sample Request
-
-```bash
-$ curl \
-    --request GET \
-    http://localhost:8080/api/cloud-accounts
-```
-
 ### Add Cloud Account
 
 API for add cloud account
@@ -105,7 +116,7 @@ API for add cloud account
 #### Parameters
 
 - `displayName` `(string: <required>)` – The display name of the cloud account
-- `cloudProvider` `(string: <required>)` – The cloud provider (AWS, GCP, AZURE, etc...)
+- `cloudProvider` `(string: <required>)` – The cloud provider (AWS, GCP, Azure, etc...)
 - `accessKey` `(string: <required>)` – The AWS access key
 - `secretKey` `(string: <required>)` – The AWS secret key
 
@@ -113,12 +124,10 @@ API for add cloud account
 
 ```json
 {
-	"_id": "60526ffb3a611c4670f2a38a"
-	,"displayName":"test account",
-	"cloudProvider":"AWS"
-	,"accessKey":"test"
-	,"secretKey":"test",
-	"__v":0
+  "displayName": "test2",
+  "cloudProvider": "AWS",
+  "accessKey": "XXXXX",
+  "secretKey": "XXXXX"
 }
 ```
 
@@ -129,39 +138,6 @@ $ curl \
     --request POST \
     --data @payload.json \
     http://localhost:8080/api/cloud-accounts
-```
-
-### GET Cloud Account
-
-API for get cloud account
-
-| Method | Path             |
-| :----- | :--------------- |
-| `GET` | `/api/cloud-accounts/<id>` |
-
-#### Parameters
-
-- `id` `(string: <required>)` – The id of the cloud account
-
-#### Sample Payload
-
-```json
-{
-	"_id": "60526ffb3a611c4670f2a38a"
-	,"displayName":"test account",
-	"cloudProvider":"AWS"
-	,"accessKey":"test"
-	,"secretKey":"test",
-	"__v":0
-}
-```
-
-#### Sample Request
-
-```bash
-$ curl \
-    --request GET \
-    http://localhost:8080/api/cloud-accounts/<id>
 ```
 
 ### Delete Cloud Account
@@ -176,14 +152,6 @@ API for delete cloud account by id
 
 - `id` `(string: <required>)` – The id of the cloud account
 
-#### Sample Payload
-
-```json
-{
-  "status": "ok"
-}
-```
-
 #### Sample Request
 
 ```bash
@@ -191,4 +159,3 @@ $ curl \
     --request DELETE \
     http://localhost:8080/api/cloud-accounts/<id>
 ```
-
