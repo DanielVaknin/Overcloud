@@ -20,11 +20,24 @@ function AddCloudAccount(props) {
 
   const sendDetailsToServer = async () => {
     console.log(details);
-    await axios
-      .post("http://localhost:8080/api/cloud/addAccount", details)
+    await axios.post("http://localhost:8080/api/cloud-accounts", details)
       .then((response) => {
         console.log(response);
-        history.push("/CloudAccounts");
+        console.log(response.data._id);
+        //Scan for Recommendations
+        axios.post("http://localhost:5000/recommendations/scan", { 
+          "cloud_account": response.data._id 
+        }).then((scanResponse) => {
+          console.log(scanResponse);
+          //Redirect to CloudAccounts page only after scan good response
+          history.push("/CloudAccounts");
+        }).catch((e) => {
+          //Alert error o the user
+          console.log(e);
+          setError(e.response.data);
+          alert(error);
+        })
+
       })
       .catch((error) => {
         if (error.response.status === 400) {

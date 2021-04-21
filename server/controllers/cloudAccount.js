@@ -1,5 +1,5 @@
 
-const CloudAccounts = require('../models/cludAccount');
+const CloudAccounts = require('../models/cloudAccount');
 
 module.exports.addCloudAccount = async (req, res, next) => {
     const { displayName, cloudProvider, accessKey, secretKey } = req.body;

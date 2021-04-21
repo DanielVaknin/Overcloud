@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom";
 
 function Loginform(props) {
 	const history = useHistory();
-	const [details, setDetails] = useState({ email: "", password: "" });
+	const [details, setDetails] = useState({ username: "", password: "" });
 
 	const submitHandler = e => {
 		e.preventDefault();
@@ -69,7 +69,7 @@ function Loginform(props) {
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
-								<input type="email" class="form-control" placeholder="Email" onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email} />
+								<input type="email" class="form-control" placeholder="Email" onChange={e => setDetails({ ...details, username: e.target.value })} value={details.username} />
 
 							</div>
 							<div class="input-group form-group">

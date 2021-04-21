@@ -5,15 +5,16 @@ import axios from "axios";
 //import history from '../History';
 import { useHistory } from "react-router-dom";
 import { Card, Avatar } from "antd";
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from "@ant-design/icons";
+import { EditOutlined, EllipsisOutlined, SettingOutlined, SearchOutlined, CloudServerOutlined } from "@ant-design/icons";
 
 function CloudAccounts(props) {
   const history = useHistory();
   const [accounts, setAccounts] = useState([]);
+  const [error, setError] = useState("");
   const { Meta } = Card;
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/cloud/accounts`).then((res) => {
+    axios.get(`http://localhost:8080/api/cloud-accounts`).then((res) => {
       console.log(res.data);
       setAccounts(res.data);
     });
@@ -25,9 +26,28 @@ function CloudAccounts(props) {
     history.push(`/Recommendations/${cloudAccount._id}`);
   };
 
+  const scanRecommendations = (cloudAccount) => {
+    //Scan for Recommendations
+    axios
+      .post("http://localhost:5000/recommendations/scan", {
+        cloud_account: cloudAccount._id,
+      })
+      .then((response) => {
+        console.log(response);
+        //Redirect to CloudAccounts page only after scan good response
+        alert("Scan in Progress");
+      })
+      .catch((e) => {
+        //Alert error o the user
+        console.log(e);
+        setError(e.response.data);
+        alert(error);
+      });
+  };
+
   return (
-    <div class="font">
-      <h2>Cloud Accounts</h2>
+    <div class="font" >
+      <h2 style={{color: "white"}}>Cloud Accounts </h2>
 
       {accounts.map((account, index) => {
         // return (
@@ -52,7 +72,11 @@ function CloudAccounts(props) {
           <Card
             style={{ width: 300 }}
             // cover={<img alt="example" src="https://www.ctera.com/wp-content/uploads/2018/12/aws_logo.png" />}
-            actions={[<SettingOutlined key="setting" />, <EditOutlined key="edit" />, <EllipsisOutlined key="ellipsis" onClick={() => recommendations(account)}/>]}
+            actions={[
+              <SearchOutlined key="setting" onClick={() => scanRecommendations(account)}/>,
+              <EditOutlined key="edit" />,
+              <CloudServerOutlined key="ellipsis" onClick={() => recommendations(account)}/>,
+            ]}
           >
             <Meta
               avatar={<Avatar src="https://www.ctera.com/wp-content/uploads/2018/12/aws_logo.png" />}
@@ -61,7 +85,7 @@ function CloudAccounts(props) {
             />
             {/* <Button onClick={() => recommendations(account._id)}>Recommendations</Button> */}
           </Card>
-        )
+        );
       })}
     </div>
   );

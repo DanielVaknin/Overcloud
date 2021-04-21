@@ -15,7 +15,7 @@ import { useHistory } from "react-router-dom";
 
 export default function App() {
   const history = useHistory();
-  const [connectedUser, setConnectedUser] = useState(JSON.parse(localStorage.getItem("user")))
+  const [connectedUser, setConnectedUser] = useState(localStorage.getItem("user"))
   //const [cloudAccountDetails, setCloudAccountDetails] = useState(JSON.parse(localStorage.getItem("cloudAccount")));
 
 
@@ -33,7 +33,7 @@ export default function App() {
             <Route path="/AddCloudAccount" component={() => <AddCloudAccount />} />
             <Route path="/CloudAccounts" component={CloudAccounts} />
             <Route path="/Recommendations/:cloudAccountId" component={Recommendations} />
-            <Route path="/:cloudAccountId/Recommendation/:recId" component={() => <RecommendationDetails />} />
+            <Route path="/:cloudAccountId/Recommendation/:recType" component={() => <RecommendationDetails />} />
             <Route path="/Dashboard" component={() => <Dashboard />} />
           </Switch>
         </div>

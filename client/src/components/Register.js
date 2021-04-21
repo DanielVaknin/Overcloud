@@ -26,7 +26,7 @@ function Register(props) {
 
 	const sendDetailsToServer = async () => {
 		console.log(details);
-		await axios.post('http://localhost:8080/api/users/register', details)
+		await axios.post('http://localhost:8080/api/auth/register', details)
 			.then(response => {
 				console.log(response)
 				setUser({
