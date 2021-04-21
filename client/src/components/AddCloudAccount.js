@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import "./AddCloudAccount.css";
 import axios from "axios";
-//import history from '../History';
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 function AddCloudAccount(props) {
   const history = useHistory();
@@ -70,16 +69,16 @@ function AddCloudAccount(props) {
             <div className="card-header">
               <h3> Add Cloud Account </h3>{" "}
             </div>
-            <div class="card-body">
-              <div class="input-group form-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-user"> </i>
+            <div className="card-body">
+              <div className="input-group form-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">
+                    <i className="fas fa-user"> </i>
                   </span>
                 </div>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   placeholder="Display Name"
                   value={details.displayName}
                   onChange={(e) => {
@@ -87,51 +86,51 @@ function AddCloudAccount(props) {
                   }}
                 />
               </div>
-              <div class="input-group form-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-envelope"> </i>
+              <div className="input-group form-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">
+                    <i className="fas fa-envelope"> </i>
                   </span>
                 </div>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   placeholder="Cloud Provider"
                   value={details.cloudProvider}
                   onChange={(e) => setDetails({ ...details, cloudProvider: e.target.value })}
                 />
               </div>
 
-              <div class="input-group form-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-key"> </i>
+              <div className="input-group form-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">
+                    <i className="fas fa-key"> </i>
                   </span>
                 </div>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   placeholder="Access Key"
                   value={details.accessKey}
                   onChange={(e) => setDetails({ ...details, accessKey: e.target.value })}
                 />
               </div>
-              <div class="input-group form-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-key"> </i>
+              <div className="input-group form-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">
+                    <i className="fas fa-key"> </i>
                   </span>
                 </div>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   placeholder="Secret Key"
                   value={details.secretKey}
                   onChange={(e) => setDetails({ ...details, secretKey: e.target.value })}
                 />
               </div>
-              <div class="form-group">
-                <input type="submit" value="Add" class="btn float-right login_btn" onClick={handleSubmitClick} />
+              <div className="form-group">
+                <input type="submit" value="Add" className="btn float-right login_btn" onClick={handleSubmitClick} />
               </div>
             </div>
           </div>
@@ -140,4 +139,5 @@ function AddCloudAccount(props) {
     </form>
   );
 }
+
 export default AddCloudAccount;

@@ -4,7 +4,8 @@ const schemaCloudAccount = Joi.object({
     displayName: Joi.string().min(2).max(50).required(),
     cloudProvider: Joi.string().min(2).max(50).required(),
     accessKey: Joi.string().min(5).max(255).required(),
-    secretKey: Joi.string().min(5).max(255).required()
+    secretKey: Joi.string().min(5).max(255).required(),
+    scanTime: Joi.number()
 });
 
 const schemaUserRegister = Joi.object({

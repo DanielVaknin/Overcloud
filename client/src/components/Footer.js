@@ -1,9 +1,8 @@
-  
 import './Footer.css'
 
-function Footer () {
+function Footer() {
     return (
-       
+
         <footer className="footer">
             <div className="container">
                 <span className="text-muted">Copyright © Your Website 2020</span>
@@ -12,4 +11,5 @@ function Footer () {
 
     )
 }
+
 export default Footer;
