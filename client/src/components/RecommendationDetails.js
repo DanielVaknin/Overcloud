@@ -49,14 +49,19 @@ function RecommendationDetails(props) {
           console.log(res.data.recommendations);
           setRecommendationDetails(res.data.recommendations[0].data);
           setRecommendationName(res.data.recommendations[0].name);
-          var detailsJson = res.data.recommendations[0].data[0];
-          let detailsKeys = Object.keys(detailsJson);
-          //detailsKeys.push("operation");
-          const columns = detailsKeys.map((item) => ({
-            title: item.toLocaleUpperCase(),
-            dataIndex: item,
-            key: item,
-          }));
+          console.log(res.data.recommendations[0].data.length);
+          //If the recommendation is not empty
+          let columns = [];
+          if (!(res.data.recommendations[0].data.length == 0)) {
+            var detailsJson = res.data.recommendations[0].data[0];
+            let detailsKeys = Object.keys(detailsJson);
+            //detailsKeys.push("operation");
+            columns = detailsKeys.map((item) => ({
+              title: item.toLocaleUpperCase(),
+              dataIndex: item,
+              key: item,
+            }));
+          }
           //   let operation = {
           //     title: "Action",
           //     dataIndex: "",
@@ -71,19 +76,18 @@ function RecommendationDetails(props) {
   }, [recommendationType]);
 
   const remediate = () => {
+    alert(recommendationType +'will be remediated!')
     axios
-      .get(`http://localhost:5000/recommendations/remediate`, {
-        params: {
+      .post(`http://localhost:5000/recommendations/remediate`, 
+      {       
           cloud_account: cloudId,
-          recommendation_type: recommendationType,
-        },
+          recommendation_type: recommendationType,       
       })
       .then((res) => {
         console.log(res);
       });
   };
 
- 
   return (
     <div class="font">
       <Button onClick={goBack}>Back</Button>
@@ -95,6 +99,5 @@ function RecommendationDetails(props) {
       )}
     </div>
   );
-
 }
 export default RecommendationDetails;

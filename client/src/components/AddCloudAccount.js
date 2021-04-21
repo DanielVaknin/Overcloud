@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./AddCloudAccount.css";
 import axios from "axios";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function AddCloudAccount(props) {
   const history = useHistory();
@@ -19,30 +19,51 @@ function AddCloudAccount(props) {
 
   const sendDetailsToServer = async () => {
     console.log(details);
-    await axios.post("http://localhost:8080/api/cloud-accounts", details)
-      .then((response) => {
-        console.log(response);
-        console.log(response.data._id);
-        //Scan for Recommendations
-        axios.post("http://localhost:5000/recommendations/scan", { 
-          "cloud_account": response.data._id 
-        }).then((scanResponse) => {
-          console.log(scanResponse);
-          //Redirect to CloudAccounts page only after scan good response
-          history.push("/CloudAccounts");
-        }).catch((e) => {
-          //Alert error o the user
-          console.log(e);
-          setError(e.response.data);
-          alert(error);
-        })
-
+    //Add cloud account to DB
+    await axios
+      .post("http://localhost:5000/cloud-accounts/validate", {
+        cloudProvider: details.cloudProvider,
+        accessKey: details.accessKey,
+        secretKey: details.secretKey,
       })
-      .catch((error) => {
-        if (error.response.status === 400) {
-          alert(error.response.data);
-          setError(error.response.data);
-          console.log(error.response.data);
+      .then((validateResponse) => {
+        console.log(validateResponse);
+        //Validate cloud account
+        axios
+          .post("http://localhost:8080/api/cloud-accounts", details)
+          .then((addAccountResponse) => {
+            console.log(addAccountResponse);
+            console.log(addAccountResponse.data._id);
+            //Scan for Recommendations if account is valid
+            axios
+              .post("http://localhost:5000/recommendations/scan", {
+                cloud_account: addAccountResponse.data._id,
+              })
+              .then((scanResponse) => {
+                console.log(scanResponse);
+                //Redirect to CloudAccounts page only after scan good response
+                history.push("/CloudAccounts");
+              })
+              .catch((scanError) => {
+                //Alert error o the user
+                console.log(scanError);
+                setError(scanError.response.data.error);
+                alert(error);
+              });
+          })
+          .catch((addAccountError) => {
+            //Alert error o the user
+            console.log(addAccountError.response.data);
+            setError(addAccountError.response.data.error);
+            alert(error);
+          });
+      })
+      .catch((validateError) => {
+        console.log(validateError.response.data);
+        if (validateError.response.status === 500) {
+          console.log(validateError.response.data.error);
+          setError(validateError.response.data.error);
+          alert(error);
         }
       });
   };
