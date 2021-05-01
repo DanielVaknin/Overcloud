@@ -47,7 +47,7 @@ function CloudAccounts(props) {
 
   return (
     <div class="font">
-      <h2 style={{ color: "white" }}>Cloud Accounts </h2>
+      <h2 style={{ color: "#4bb5db" }}>Cloud Accounts </h2>
 
       {accounts.map((account, index) => {
         return (

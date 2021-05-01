@@ -63,18 +63,18 @@ const Header = (props) => {
         // </div>
 
         <Navbar bg="dark" variant="dark">
-            <Link to='/'><img className="logo" src="images/Capture.PNG" alt="img"></img></Link>
+            <Link to='/Dashboard'><img className="logo" src="images/Capture.PNG" alt="img"></img></Link>
             {
                 isLoggedIn ?
                     <Nav className="mr-auto">
                         <Nav.Link href="/AddCloudAccount">Add Cloud Account</Nav.Link>
                         <Nav.Link href="/CloudAccounts">Cloud Accounts</Nav.Link>
-                        <Nav.Link href="/" onClick={onLogout}>Logout</Nav.Link>
+                        <Nav.Link href="/" onClick={onLogout} className = "logout-nav">Logout</Nav.Link>
                     </Nav> : <Nav></Nav>
             }
             {
                 !isLoggedIn ?
-                    <Nav className="mr-auto">
+                    <Nav className="mr-auto1">
                         <Nav.Link href="/Register">Register</Nav.Link>
                         <Nav.Link href="/Loginform">Login</Nav.Link>
                     </Nav> : <Nav></Nav>

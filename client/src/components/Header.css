@@ -1,8 +1,11 @@
+.navbar.bg-dark {
+    background-color: black !important;
+}
 .Header {
     position: relative;
     height: 67px;
     width: 100%;
-    background-color: black;
+
 }
 
 .logo {
@@ -16,4 +19,16 @@
 
 .links {
     color: white;
+}
+.logout-nav{
+    
+    position: absolute;
+    right: 25px;
+
+}
+
+.mr-auto1{
+    position: absolute;
+    right: 25px;
+
 }
