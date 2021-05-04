@@ -21,7 +21,7 @@ export default function App() {
 
   return (
     <BrowserRouter history={history}>
-      <div>
+      <div style={{height: '100%' , width:'100%'}}>
         <Header connectedUser={connectedUser} />
         {/* Page Content */}
         <div className="container">

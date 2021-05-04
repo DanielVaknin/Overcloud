@@ -69,7 +69,7 @@ function AddCloudAccount(props) {
   };
 
   return (
-    <form onSubmit={handleSubmitClick}>
+    <form className = "addAccount" onSubmit={handleSubmitClick}>
       <title> Add Cloud Account Page</title>
       <link
         rel="stylesheet"

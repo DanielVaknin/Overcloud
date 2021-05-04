@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactEcharts from "echarts-for-react";
 import axios from "axios";
+import './Dashboard.css';
 
 export default function Dashboard() {
 	const cloudAccountDetails = JSON.parse(localStorage.getItem("cloudAccount"));
@@ -48,7 +49,12 @@ export default function Dashboard() {
                 setChartData(options);
 			});
 	}, []);
+
+
+    
 	return (
+        
+        
 		<ReactEcharts
         style={{height: '600px'}}
 			option={chartData}

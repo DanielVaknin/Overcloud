@@ -1,14 +1,19 @@
-html, body {
+.register{
     background-image: url('https://wallpaperaccess.com/full/1567666.png');
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     height: 100%;
-    font-family: 'Numans', sans-serif;
+    width: 100%;
+
+
 }
 
 .container {
     height: 100%;
     margin-right: 650px;
+    padding: 0 !important;
+    
 }
 
 .card {
