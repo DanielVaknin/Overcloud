@@ -175,10 +175,8 @@ function AddCloudAccount(props) {
                     onChange={(e) => setDetails({ ...details, scanInterval: e.target.value })}
                 />
               </div>
-
-
-              <div className="form-group">
-                <input type="submit" value="Add" className="btn float-right login_btn" onClick={handleSubmitClick} />
+              <div className="form-group text-center">
+                <input type="submit" value="Add" className="btn btn-primary login_btn btn-block" onClick={handleSubmitClick} />
               </div>
             </div>
           </div>
