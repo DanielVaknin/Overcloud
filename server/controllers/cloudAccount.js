@@ -1,8 +1,7 @@
-
 const CloudAccounts = require('../models/cloudAccount');
 
 module.exports.addCloudAccount = async (req, res, next) => {
-    const { displayName, cloudProvider, accessKey, secretKey, scanTime } = req.body;
+    const { displayName, cloudProvider, accessKey, secretKey } = req.body;
     let cloudAccount = await CloudAccounts.checkIfCloudAccountExist(accessKey);
 
     if (cloudAccount) {
@@ -13,21 +12,20 @@ module.exports.addCloudAccount = async (req, res, next) => {
     } else {
         const cloudAccount = new CloudAccounts({displayName, cloudProvider, accessKey, secretKey})
         await cloudAccount.save()
-
-        if(scanTime != undefined )
-        {
-            //creating a cron schedule task for scanning recommendations for the cloudAccount
-            console.log("Inisde the IF");
-            cron.schedule(`*/${scanTime} * * * *`, function() {
-                console.log(`Running a scan every ${scanTime} minute`);
-                axios.post('http://localhost:5000/recommendations/scan', {
-                    cloud_account: cloudAccount._id},
-                    {
-                        headers: { 'content-type': 'application/json' }});
-            });
-        }
         res.json(cloudAccount)
     }
+}
+
+module.exports.setScanSchedule = async (req, res, next) => {
+    const { id } = req.params;
+    const { scan_interval } = req.body;
+    CloudAccounts.findByIdAndUpdate(id, { scanInterval: parseInt(scan_interval)}, {new: true}, function(err, model) {
+        if (err || model === null) return res.status(404).json({
+            "status": "error",
+            "error": "Could not find cloud account with ID: " + id
+        });
+        res.json(model);
+    });
 }
 
 module.exports.getCloudAccounts = async (req, res, next) => {

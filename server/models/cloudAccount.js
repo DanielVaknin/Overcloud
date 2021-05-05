@@ -1,4 +1,3 @@
-const Joi = require('joi');
 const mongoose = require('mongoose');
 schema = new mongoose.Schema({
     displayName: {
@@ -28,7 +27,7 @@ schema = new mongoose.Schema({
         maxlength: 255,
         unique: true
     },
-    scanTime: {
+    scanInterval: {
         type: Number
     }
 });
