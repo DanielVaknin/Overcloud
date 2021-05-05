@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 function AddCloudAccount(props) {
   const history = useHistory();
 
-  const [details, setDetails] = useState({ displayName: "", cloudProvider: "", accessKey: "", secretKey: "" });
+  const [details, setDetails] = useState({ displayName: "", cloudProvider: "", accessKey: "", secretKey: "", scanInterval: "" });
   //const [user, setUser] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
 
@@ -25,6 +25,7 @@ function AddCloudAccount(props) {
         cloudProvider: details.cloudProvider,
         accessKey: details.accessKey,
         secretKey: details.secretKey,
+        scanInterval: details.scanInterval
       })
       .then((validateResponse) => {
         console.log(validateResponse);
@@ -34,16 +35,25 @@ function AddCloudAccount(props) {
           .then((addAccountResponse) => {
             console.log(addAccountResponse);
             console.log(addAccountResponse.data._id);
-            //Scan for Recommendations if account is valid
+
+            //Call ScanScheduler API
             axios
-              .post("http://localhost:5000/recommendations/scan", {
-                cloud_account: addAccountResponse.data._id,
-              })
-              .then((scanResponse) => {
-                console.log(scanResponse);
-                //Redirect to CloudAccounts page only after scan good response
-                history.push("/CloudAccounts");
-              })
+                .post("http://localhost:5000/recommendations/schedule-scan", {
+                  cloud_account: addAccountResponse.data._id,
+                    scan_interval: details.scanInterval
+                })
+                .then((scheduleScanResponse) => {
+                  console.log(scheduleScanResponse);
+                  axios
+                      .post("http://localhost:5000/recommendations/scan", {
+                        cloud_account: addAccountResponse.data._id,
+                      })
+                      .then((scanResponse) => {
+                        console.log(scanResponse);
+                        //Redirect to CloudAccounts page only after scan good response
+                        history.push("/CloudAccounts");
+                      })
+                })
               .catch((scanError) => {
                 //Alert error o the user
                 console.log(scanError);
@@ -161,8 +171,8 @@ function AddCloudAccount(props) {
                     type="text"
                     className="form-control"
                     placeholder="Scan Interval"
-                    value={details.secretKey}
-                    onChange={(e) => setDetails({ ...details, secretKey: e.target.value })}
+                    value={details.scanInterval}
+                    onChange={(e) => setDetails({ ...details, scanInterval: e.target.value })}
                 />
               </div>
 
