@@ -19,8 +19,6 @@ module.exports.addCloudAccount = async (req, res, next) => {
 module.exports.setScanSchedule = async (req, res, next) => {
     const { id } = req.params;
     const { scan_interval } = req.body;
-    console.log("id: " + id);
-    console.log("scan_interval: " + scan_interval);
     CloudAccounts.findByIdAndUpdate(id, { scanInterval: parseInt(scan_interval)}, {new: true}, function(err, model) {
         if (err || model === null) return res.status(404).json({
             "status": "error",
