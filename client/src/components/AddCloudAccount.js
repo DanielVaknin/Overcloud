@@ -23,9 +23,9 @@ function AddCloudAccount(props) {
     await axios
       .post("http://localhost:5000/cloud-accounts/validate", {
         cloudProvider: details.cloudProvider,
-        accessKey: details.accessKey,
-        secretKey: details.secretKey,
-        scanInterval: details.scanInterval
+          credentials:{
+            accessKey: details.accessKey,
+              secretKey: details.secretKey}
       })
       .then((validateResponse) => {
         console.log(validateResponse);
@@ -40,7 +40,7 @@ function AddCloudAccount(props) {
             axios
                 .post("http://localhost:5000/recommendations/schedule-scan", {
                   cloud_account: addAccountResponse.data._id,
-                    scan_interval: details.scanInterval
+                    scan_interval: parseInt(details.scanInterval)
                 })
                 .then((scheduleScanResponse) => {
                   console.log(scheduleScanResponse);
@@ -171,7 +171,7 @@ function AddCloudAccount(props) {
                     type="text"
                     className="form-control"
                     placeholder="Scan Interval"
-                    value={details.scanInterval}
+                    value={parseInt(details.scanInterval)}
                     onChange={(e) => setDetails({ ...details, scanInterval: e.target.value })}
                 />
               </div>
