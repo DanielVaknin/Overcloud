@@ -19,13 +19,13 @@ function Loginform(props) {
         axios.post('http://localhost:8080/api/auth/login', details)
             .then(response => {
                 const username = details['username'];
-                props.setConnectedUser(details['username']);
-                localStorage.setItem("user", details['username']);
+                props.setConnectedUser(username);
+                localStorage.setItem("user", username);
                 setTimeout(() => {
                     history.push('./Dashboard')
                 }, 200);
-            }).catch(error => {
-            if (error.response.status === 400) {
+            }).catch(e => {
+            if (e.response.status === 400) {
                 setError("User doesn't exist");
                 alert(error)
             }

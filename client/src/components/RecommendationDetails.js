@@ -16,9 +16,6 @@ function RecommendationDetails(props) {
   const [recommendationDetailsKeys, setRecommendationDetailsKeys] = useState([]);
   const [recommendationType, setRecommendationType] = useState("");
   const [cloudId, setCloudId] = useState("");
-
-  //const [columns, setColumns] = useState([]);
-  //const [columnsToHide, setColumnsToHide] = useState(["_id"]);
   const [error, setError] = useState("");
 
   //Receive the params from previous page - Recommendations
@@ -52,25 +49,22 @@ function RecommendationDetails(props) {
           console.log(res.data.recommendations[0].data.length);
           //If the recommendation is not empty
           let columns = [];
-          if (!(res.data.recommendations[0].data.length == 0)) {
+          if (!(res.data.recommendations[0].data.length === 0)) {
             var detailsJson = res.data.recommendations[0].data[0];
             let detailsKeys = Object.keys(detailsJson);
-            //detailsKeys.push("operation");
             columns = detailsKeys.map((item) => ({
-              title: item.toLocaleUpperCase(),
+              title: item.charAt(0).toLocaleUpperCase() + item.slice(1).split(/(?=[A-Z])/).join(" "),
               dataIndex: item,
               key: item,
             }));
           }
-          //   let operation = {
-          //     title: "Action",
-          //     dataIndex: "",
-          //     key: "action",
-          //     render: () => <Button>Remediate</Button>,
-          //   };
-          //columns.push(operation);
           setRecommendationDetailsKeys(columns);
           console.log(columns);
+        }).catch((e) => {
+          //Alert error to the user
+          console.log(e);
+          setError(e.response.data.error);
+          alert(error);
         });
     }
   }, [recommendationType]);
@@ -85,13 +79,18 @@ function RecommendationDetails(props) {
       })
       .then((res) => {
         console.log(res);
+      }).catch((e) => {
+        //Alert error to the user
+        console.log(e);
+        setError(e.response.data.error);
+        alert(error);
       });
   };
 
   return (
     <div class="font">
       <Button onClick={goBack}>Back</Button>
-      <h1 class="font" id="title">
+      <h1 style={{ color: "#4bb5db" }} id="title">
         {recommendationName} to delete
       </h1>
       {recommendationDetailsKeys.length && (

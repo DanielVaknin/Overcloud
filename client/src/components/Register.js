@@ -30,11 +30,10 @@ function Register(props) {
 				setUser({
 					name: response.data.name,
 					email: response.data.email,
-
                 })
                 history.push('/Loginform')
-            }).catch(error => {
-                if (error.response.status === 400) {
+            }).catch(e => {
+                if (e.response.status === 400) {
                     setError("error cannot register");
                     console.log("error register", error)
                 }

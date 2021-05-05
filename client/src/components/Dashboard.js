@@ -6,6 +6,7 @@ import './Dashboard.css';
 export default function Dashboard() {
 	const cloudAccountDetails = JSON.parse(localStorage.getItem("cloudAccount"));
 	const [chartData, setChartData] = useState({});
+	const [error, setError] = useState("");
 	useEffect(() => {
 		axios
 			.get(`http://localhost:5000/recommendations`, {
@@ -47,7 +48,12 @@ export default function Dashboard() {
 				};
 
                 setChartData(options);
-			});
+			}).catch((e) => {
+				//Alert error to the user
+				console.log(e);
+				setError(e.response.data.error);
+				alert(error);
+			  });
 	}, []);
 
 

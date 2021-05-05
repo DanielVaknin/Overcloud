@@ -17,7 +17,12 @@ const Header = (props) => {
     const onLogout = (e) => {
         setIsLoggedIn(false);
         localStorage.removeItem('user')
-        history.push('/loginform')
+        localStorage.removeItem('cloudAccount')
+        history.push('/Loginform')
+    }
+
+    const onAddCloudAccount = (e) => {
+        localStorage.removeItem('cloudAccount')
     }
 
 
@@ -67,9 +72,9 @@ const Header = (props) => {
             {
                 isLoggedIn ?
                     <Nav className="mr-auto">
-                        <Nav.Link href="/AddCloudAccount">Add Cloud Account</Nav.Link>
+                        <Nav.Link href="/AddCloudAccount" onClick={onAddCloudAccount}>Add Cloud Account</Nav.Link>
                         <Nav.Link href="/CloudAccounts">Cloud Accounts</Nav.Link>
-                        <Nav.Link href="/" onClick={onLogout} className = "logout-nav">Logout</Nav.Link>
+                        <Nav.Link onClick={onLogout} className = "logout-nav">Logout</Nav.Link>
                     </Nav> : <Nav></Nav>
             }
             {

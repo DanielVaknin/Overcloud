@@ -1,20 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AddCloudAccount.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 function AddCloudAccount(props) {
   const history = useHistory();
-
-  const [details, setDetails] = useState({ displayName: "", cloudProvider: "", accessKey: "", secretKey: "" });
-  //const [user, setUser] = useState({ name: "", email: "", password: "" });
+  const [cloudAccount, setCloudAccount] = useState(JSON.parse(localStorage.getItem("cloudAccount")))
+  console.log(cloudAccount);
+  const [details, setDetails] = useState({ displayName: "", cloudProvider: "", accessKey: "", secretKey: "", scanInterval: ""  });
+  console.log(details);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if(cloudAccount)
+    setDetails(cloudAccount);
+    console.log(details);
+  }, []);
 
   const handleSubmitClick = (e) => {
     e.preventDefault();
     sendDetailsToServer();
-    // if (!error)
-    // 	history.push('/CloudAccounts')
   };
 
   const sendDetailsToServer = async () => {
@@ -23,8 +28,10 @@ function AddCloudAccount(props) {
     await axios
       .post("http://localhost:5000/cloud-accounts/validate", {
         cloudProvider: details.cloudProvider,
+        credentials: {
         accessKey: details.accessKey,
         secretKey: details.secretKey,
+      },
       })
       .then((validateResponse) => {
         console.log(validateResponse);
@@ -34,6 +41,15 @@ function AddCloudAccount(props) {
           .then((addAccountResponse) => {
             console.log(addAccountResponse);
             console.log(addAccountResponse.data._id);
+            
+            //Call ScanScheduler API
+            axios
+                .post("http://localhost:5000/recommendations/schedule-scan", {
+                  cloud_account: addAccountResponse.data._id,
+                  scan_interval: parseInt(details.scanInterval),
+                })
+                .then((scheduleScanResponse) => {
+                  console.log(scheduleScanResponse);
             //Scan for Recommendations if account is valid
             axios
               .post("http://localhost:5000/recommendations/scan", {
@@ -43,6 +59,7 @@ function AddCloudAccount(props) {
                 console.log(scanResponse);
                 //Redirect to CloudAccounts page only after scan good response
                 history.push("/CloudAccounts");
+              });
               })
               .catch((scanError) => {
                 //Alert error o the user
@@ -69,7 +86,7 @@ function AddCloudAccount(props) {
   };
 
   return (
-    <form className = "addAccount" onSubmit={handleSubmitClick}>
+    <form className="addAccount" onSubmit={handleSubmitClick}>
       <title> Add Cloud Account Page</title>
       <link
         rel="stylesheet"
@@ -150,8 +167,23 @@ function AddCloudAccount(props) {
                   onChange={(e) => setDetails({ ...details, secretKey: e.target.value })}
                 />
               </div>
-              <div className="form-group">
-                <input type="submit" value="Add" className="btn float-right login_btn" onClick={handleSubmitClick} />
+
+              <div className="input-group form-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">
+                    <i class="fas fa-clock"> </i>
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Scan Interval"
+                  value={details.scanInterval}
+                  onChange={(e) => setDetails({ ...details, scanInterval: parseInt(e.target.value) })}
+                />
+              </div>
+              <div className="form-group text-center">
+                <input type="submit" value="Submit" className="btn btn-primary login_btn btn-block"  onClick={handleSubmitClick} />
               </div>
             </div>
           </div>
