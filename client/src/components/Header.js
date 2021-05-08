@@ -67,16 +67,7 @@ const Header = (props) => {
             {
                 isLoggedIn ?
                     <Nav className="mr-auto">
-                        <Nav.Link href="/AddCloudAccount">Add Cloud Account</Nav.Link>
-                        <Nav.Link href="/CloudAccounts">Cloud Accounts</Nav.Link>
                         <Nav.Link href="/" onClick={onLogout} className = "logout-nav">Logout</Nav.Link>
-                    </Nav> : <Nav></Nav>
-            }
-            {
-                !isLoggedIn ?
-                    <Nav className="mr-auto1">
-                        <Nav.Link href="/Register">Register</Nav.Link>
-                        <Nav.Link href="/Loginform">Login</Nav.Link>
                     </Nav> : <Nav></Nav>
             }
         </Navbar>

@@ -24,7 +24,7 @@ html, body {
 }
 
 .card {
-    height: 370px;
+    height: 350px;
     width: 400px;
     background-color: rgba(0, 0, 0, 0.5) !important;
     margin-top: 50px;
