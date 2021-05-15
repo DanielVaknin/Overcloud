@@ -1,0 +1,97 @@
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Recommendations</h1>
+  <p class="mb-4">This table shows the current recommendations for the different cloud accounts</p>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+          <tr class="text-center">
+            <th>ID</th>
+            <th>Display Name</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let rec of recommendations">
+<!--            <td>{{rec._id}}</td>-->
+<!--            <td>{{account.displayName}}</td>-->
+            <td class="text-center">
+              <div class="btn-group ml-auto" role="group">
+<!--                <button class="btn btn-warning btn-circle" routerLink="/cloud-accounts/{{account._id}}">-->
+<!--                  <i class="fas fa-edit"></i>-->
+<!--                </button>-->
+                <!--                <button (click)="onDelete(phone._id)" class="btn btn-danger btn-circle">-->
+                <!--                  <i class="fas fa-trash"></i>-->
+                <!--                </button>-->
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addPhoneModal" tabindex="-1" role="dialog" aria-labelledby="addPhoneModal"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Phone</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="display-name" class="col-form-label font-weight-bold">Display Name:</label>
+            <input type="text" class="form-control" id="display-name" #inpDisplayName/>
+          </div>
+          <div class="form-group">
+            <label for="manufacturer" class="col-form-label font-weight-bold">Manufacturer:</label>
+            <input type="text" class="form-control" id="manufacturer" #inpManufacturer/>
+          </div>
+          <div class="form-group">
+            <label for="imageUrl" class="col-form-label font-weight-bold">Image URL:</label>
+            <input type="url" class="form-control" id="imageUrl" #inpImageUrl/>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6">
+              <label for="price" class="col-form-label font-weight-bold">Price:</label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">$</div>
+                </div>
+                <input type="number" class="form-control" id="price" [defaultValue]="0" #inpPrice/>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="discount" class="col-form-label font-weight-bold">Discount:</label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">%</div>
+                </div>
+                <input type="number" class="form-control" id="discount" [defaultValue]="0" #inpDiscount/>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!--        <button type="button" class="btn btn-primary"-->
+        <!--                (click)="onAdd(inpDisplayName.value, inpManufacturer.value, inpImageUrl.value, inpPrice.valueAsNumber, inpDiscount.valueAsNumber)"-->
+        <!--                data-dismiss="modal">-->
+        <!--          Save changes-->
+        <!--        </button>-->
+      </div>
+    </div>
+  </div>
+</div>
