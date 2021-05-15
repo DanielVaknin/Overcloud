@@ -8,7 +8,7 @@ import {RecommendationsService} from "../../services/recommendations.service";
 })
 export class RecommendationsComponent implements OnInit {
 
-  recommendations: Object[] = [];
+  recommendations: any[] = [];
 
   constructor(private recommendationsService: RecommendationsService) { }
 

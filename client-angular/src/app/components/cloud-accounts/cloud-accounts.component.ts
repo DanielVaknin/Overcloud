@@ -15,14 +15,14 @@ export class CloudAccountsComponent {
 
   cloudAccounts: CloudAccount[] = [];
 
-  constructor(private cloudAccountSerice: CloudAccountsService, private activatedRoute: ActivatedRoute, private router: Router) {  }
+  constructor(private cloudAccountsService: CloudAccountsService, private activatedRoute: ActivatedRoute, private router: Router) {  }
 
   ngOnInit() {
     this.load();
   }
 
   load() {
-    this.cloudAccountSerice.getCloudAccounts().subscribe(data => {
+    this.cloudAccountsService.getCloudAccounts().subscribe(data => {
       this.cloudAccounts = data;
     });
   }

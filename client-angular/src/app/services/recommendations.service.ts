@@ -13,6 +13,10 @@ export class RecommendationsService {
   constructor(private http: HttpClient) { }
 
   getRecommendations(): Observable<Object[]> {
-    return this.http.get<Object[]>(this.recommendationsUrl);
+    return this.http.get<Object[]>(this.recommendationsUrl, {
+      params: {
+        cloud_account: "60804727b9bd311668a8ad33"
+      }
+    });
   }
 }
