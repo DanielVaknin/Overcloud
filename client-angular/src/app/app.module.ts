@@ -15,6 +15,8 @@ import { MatTableComponent } from './components/mat-table/mat-table.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import { HumanizePipe } from './pipes/humanize.pipe';
+import {MatCardModule} from "@angular/material/card";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { HumanizePipe } from './pipes/humanize.pipe';
     BrowserAnimationsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatCardModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
