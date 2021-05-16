@@ -23,11 +23,13 @@ export class RecommendationsComponent implements OnInit {
       const map = new Map<string, any>(Object.entries(data));
 
       if (map.has("recommendations") && map.get("recommendations") !== undefined) {
-        this.tableCols = Object.keys(map.get("recommendations")[0])
+        // Get table columns (headers)
+        this.tableCols =  Object.keys(map.get("recommendations")[0])
           .filter((value) => value !== "_id")
           .filter((value) => value !== "data")
-          .filter((value) => value !== "type");
+          .filter((value) => value !== "type")
 
+        // Get table data
         let recArr: any[] = map.get("recommendations")
         recArr.forEach(element => {
           // Format date
