@@ -20,19 +20,4 @@ export class CloudAccountsService {
     const url = `${this.cloudAccountsUrl}/${id}`;
     return this.http.get<CloudAccount>(url);
   }
-
-  // deleteOrder(id: string): Observable<Order> {
-  //   const url = `${this.ordersUrl}/${id}`;
-  //   return this.http.delete<Order>(url);
-  // }
-
-  // searchUsersWithMinOrders(minOrders: number): Observable<UsersMinOrder[]> {
-  //   console.log(minOrders)
-  //   const url = this.ordersUrl + '/find';
-  //   return this.http.get<UsersMinOrder[]>(url, {
-  //     params: {
-  //       num: minOrders.toString()
-  //     }
-  //   });
-  // }
 }
