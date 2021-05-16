@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import {Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -8,7 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './mat-table.component.html',
   styleUrls: ['./mat-table.component.scss']
 })
-export class MatTableComponent implements OnInit {
+export class MatTableComponent implements OnInit, OnChanges {
 
   tableDataSrc: any;
   // tslint:disable-next-line: no-input-rename
@@ -25,6 +25,10 @@ export class MatTableComponent implements OnInit {
     this.tableDataSrc = new MatTableDataSource(this.tableData);
     this.tableDataSrc.sort = this.sort;
     this.tableDataSrc.paginator = this.paginator;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.tableDataSrc = new MatTableDataSource(this.tableData);
   }
 
   onSearchInput(ev: any) {

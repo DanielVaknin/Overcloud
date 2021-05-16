@@ -8,30 +8,8 @@ import {RecommendationsService} from "../../services/recommendations.service";
 })
 export class RecommendationsComponent implements OnInit {
 
-  recommendations: any[] = [];
   tableCols: string[] = [];
-  tableData: string[] = [];
-
-
-  // tableCols = ['name', 'role', 'skillset'];
-  // tableData = [
-  //   {
-  //     name: 'Harsha Chinni',
-  //     role: 'Fullstack Developer',
-  //     skillset: 'Angular 9, Python 3, Flask, DSA'
-  //   },
-  //   {
-  //     name: 'Bob',
-  //     role: 'HR',
-  //     skillset: 'Finding awesome candidates like Harsha :p'
-  //   },
-  //   {
-  //     name: 'COVID-19',
-  //     role: 'Making people panick',
-  //     skillset: 'Infect people'
-  //   },
-  // ];
-
+  tableData: {}[] = [];
 
   constructor(private recommendationsService: RecommendationsService) {
   }
@@ -42,7 +20,6 @@ export class RecommendationsComponent implements OnInit {
 
   load() {
     this.recommendationsService.getRecommendations().subscribe(data => {
-      this.recommendations = data;
       const map = new Map<string, any>(Object.entries(data));
 
       if (map.has("recommendations") && map.get("recommendations") !== undefined) {
@@ -59,12 +36,11 @@ export class RecommendationsComponent implements OnInit {
             .replace(/\..+/, '');
 
           // Remove unneeded elements
-          delete element._id;
-          delete element.data;
-          delete element.type;
+          // delete element._id;
+          // delete element.data;
+          // delete element.type;
         });
 
-        console.log(recArr);
         this.tableData = recArr;
       }
     });
