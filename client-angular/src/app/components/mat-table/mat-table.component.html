@@ -8,7 +8,7 @@
         <ng-container *ngFor="let col of tableCols">
           <ng-container matColumnDef="{{ col }}">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ col | titlecase }}
+              {{ col | humanize }}
             </th>
             <td mat-cell *matCellDef="let profile">{{ profile[col] }}</td>
           </ng-container>

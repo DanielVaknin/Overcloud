@@ -35,6 +35,9 @@ export class RecommendationsComponent implements OnInit {
           element.collectTime = date.toISOString().replace(/T/, ' ')
             .replace(/\..+/, '');
 
+          // Add price currency
+          element['totalPrice'] = element['totalPrice'] + " $";
+
           // Remove unneeded elements
           // delete element._id;
           // delete element.data;
