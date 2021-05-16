@@ -7,6 +7,7 @@ export const environment = {
   authUrl: 'http://localhost:8080/api/auth',
   cloudAccountsUrl: 'http://localhost:8080/api/cloud-accounts',
   recommendationsUrl: 'http://localhost:5000/recommendations',
+  billingUrl: 'http://localhost:5000/cloud-accounts/billing',
 };
 
 /*

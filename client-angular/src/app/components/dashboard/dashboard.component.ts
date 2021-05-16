@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {BillingService} from "../../services/billing.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -8,10 +9,11 @@ import {Component, OnInit} from '@angular/core';
 export class DashboardComponent implements OnInit {
 
   // phones: Phone[] = [];
-
+  currentBill: string = "Calculating...";
+  billAfterSavings: string = "Calculating...";
   chartData = []
 
-  constructor() {
+  constructor(private billingService: BillingService) {
   }
 
   ngOnInit() {
@@ -19,6 +21,13 @@ export class DashboardComponent implements OnInit {
   }
 
   load() {
+    this.billingService.getCurrentBill().subscribe(data => {
+      const map = new Map<string, any>(Object.entries(data));
+
+      if (map.has("data") && map.get("data")["currentBill"] !== undefined) {
+        this.currentBill = parseFloat(map.get("data")['currentBill']).toFixed(2).toString();
+      }
+    })
     // this.phonesService.getPhones().subscribe(data => {
     //   this.phones = data;
     //   this.chartData.push({"Component": "Phones", "Count": data.length});
