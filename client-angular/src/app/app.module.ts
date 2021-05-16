@@ -17,6 +17,8 @@ import {MatSortModule} from "@angular/material/sort";
 import { HumanizePipe } from './pipes/humanize.pipe';
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import {MatButtonModule} from "@angular/material/button";
     MatPaginatorModule,
     MatSortModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

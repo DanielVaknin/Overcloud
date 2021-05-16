@@ -17,22 +17,29 @@
   </div>
   <hr>
 
-  <div class="card-group">
-    <div class="card col-3" *ngFor="let account of cloudAccounts">
-      <!--      <img class="card-img-top" alt="Card image cap">-->
-      <div class="card-body">
-        <h5 class="card-title">{{account.displayName}}</h5>
-        <p class="card-text">Access Key: {{account.accessKey}}</p>
-        <p class="card-text">Scan Interval: {{account.scanInterval}} Hours</p>
-        <!--        <a href="#" class="btn btn-primary">Recommendations</a>-->
-        <div class="btn-group">
-          <button class="btn btn-dark" routerLink="/cloud-accounts/{{account._id}}">Scan</button>
-          <button class="btn btn-info" routerLink="/cloud-accounts/{{account._id}}">Recommendations</button>
-          <button class="btn btn-warning" routerLink="/cloud-accounts/{{account._id}}">Edit</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <mat-card class="col-3" *ngFor="let account of cloudAccounts">
+    <mat-card-header>
+      <mat-card-title>{{account.cloudProvider}}</mat-card-title>
+<!--      <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+    </mat-card-header>
+<!--    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
+    <mat-card-content class="text-center">
+      <h2 class="card-title">{{account.displayName}}</h2>
+      <p class="card-text">Access Key: {{account.accessKey}}</p>
+      <p class="card-text">Scan Interval: {{account.scanInterval}} Hours</p>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-icon-button mat-button>
+        <mat-icon>radar</mat-icon>
+      </button>
+      <button mat-icon-button mat-button>
+        <mat-icon>visibility</mat-icon>
+      </button>
+      <button mat-icon-button mat-button>
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
 
   <!-- Modal -->
   <div class="modal fade" id="addCloudAccountModal" tabindex="-1" role="dialog" aria-labelledby="addCloudAccountModal"
