@@ -11,6 +11,12 @@ export class RecommendationsComponent implements OnInit {
   tableCols: string[] = [];
   tableData: {}[] = [];
 
+  COLS_TO_HIDE = [
+    "_id",
+    "data",
+    "type"
+  ]
+
   constructor(private recommendationsService: RecommendationsService) {
   }
 
@@ -25,9 +31,9 @@ export class RecommendationsComponent implements OnInit {
       if (map.has("recommendations") && map.get("recommendations") !== undefined) {
         // Get table columns (headers)
         this.tableCols =  Object.keys(map.get("recommendations")[0])
-          .filter((value) => value !== "_id")
-          .filter((value) => value !== "data")
-          .filter((value) => value !== "type")
+          // .filter((value) => value !== "_id")
+          // .filter((value) => value !== "data")
+          // .filter((value) => value !== "type")
 
         // Get table data
         let recArr: any[] = map.get("recommendations")

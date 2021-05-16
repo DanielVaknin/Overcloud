@@ -19,6 +19,8 @@ import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
+import { RecommendationDetailsComponent } from './components/recommendations/recommendation-details/recommendation-details.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import {MatMenuModule} from "@angular/material/menu";
     RecommendationsComponent,
     MatTableComponent,
     HumanizePipe,
+    RecommendationDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import {MatMenuModule} from "@angular/material/menu";
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

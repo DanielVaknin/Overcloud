@@ -1,8 +1,10 @@
 import {Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges} from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {MatDialog} from "@angular/material/dialog";
+import {RecommendationDetailsComponent} from "../recommendations/recommendation-details/recommendation-details.component";
 
 @Component({
   selector: 'app-mat-table',
@@ -22,13 +24,20 @@ export class MatTableComponent implements OnInit, OnChanges {
   // tslint:disable-next-line: no-input-rename
   @Input('tableColumns') tableCols: string[] = [];
   @Input() tableData: {}[] = [];
+  @Input('tableColumnsToHide') tableColsToHide: string[] = [];
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort | undefined;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | undefined;
+  @ViewChild(MatSort, {static: true}) sort: MatSort | undefined;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | undefined;
 
   expandedElement: any | null;
 
-  constructor() { }
+  columnsToDisplay: string[] = [];
+
+  innerTableCols: string[] = [];
+  innerTableData: {}[] = [];
+
+  constructor(public dialog: MatDialog) {
+  }
 
   ngOnInit() {
     this.tableDataSrc = new MatTableDataSource(this.tableData);
@@ -38,10 +47,36 @@ export class MatTableComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.tableDataSrc = new MatTableDataSource(this.tableData);
+    this.tableDataSrc.sort = this.sort;
+    this.tableDataSrc.paginator = this.paginator;
+    this.getColumnsToDisplay();
   }
 
-  onSearchInput(ev: any) {
-    const searchTarget = ev.target.value;
-    this.tableDataSrc.filter = searchTarget.trim().toLowerCase();
+  getColumnsToDisplay(): void {
+    this.columnsToDisplay = this.tableCols.filter(el => !this.tableColsToHide.includes(el))
+  }
+
+  onRecommendationClick(recType: string) {
+    // @ts-ignore
+    const currentRec = this.tableData.find(({type}) => type === recType);
+    // @ts-ignore
+    if (currentRec !== undefined && currentRec["data"] !== undefined) {
+      // @ts-ignore
+      this.innerTableCols = Object.keys(currentRec["data"][0])
+      // @ts-ignore
+      this.innerTableData = currentRec["data"];
+
+      const dialogRef = this.dialog.open(RecommendationDetailsComponent, {
+        data: {
+          recType: recType,
+          tableCols: this.innerTableCols,
+          tableData: this.innerTableData
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
   }
 }
