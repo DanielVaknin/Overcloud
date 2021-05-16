@@ -10,8 +10,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CloudAccountsComponent } from './components/cloud-accounts/cloud-accounts.component';
 import { RecommendationsComponent } from './components/recommendations/recommendations.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableComponent } from './components/mat-table/mat-table.component';
 import {MatTableModule} from "@angular/material/table";
+import { MatTableComponent } from './components/mat-table/mat-table.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -20,7 +22,7 @@ import {MatTableModule} from "@angular/material/table";
     DashboardComponent,
     CloudAccountsComponent,
     RecommendationsComponent,
-    MatTableComponent
+    MatTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,9 @@ import {MatTableModule} from "@angular/material/table";
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
