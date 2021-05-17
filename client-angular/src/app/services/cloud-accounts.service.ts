@@ -20,4 +20,13 @@ export class CloudAccountsService {
     const url = `${this.cloudAccountsUrl}/${id}`;
     return this.http.get<CloudAccount>(url);
   }
+
+  addCloudAccount(provider: string, displayName: string, accessKey: string, secretAccessKey: string) {
+    return this.http.post<CloudAccount>(this.cloudAccountsUrl, {
+      cloudProvider: provider,
+      displayName: displayName,
+      accessKey: accessKey,
+      secretKey: secretAccessKey
+    })
+  }
 }

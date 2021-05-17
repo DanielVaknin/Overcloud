@@ -22,6 +22,10 @@ import {MatMenuModule} from "@angular/material/menu";
 import { RecommendationDetailsComponent } from './components/recommendations/recommendation-details/recommendation-details.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { AddAccountDialogComponent } from './components/cloud-accounts/add-account-dialog/add-account-dialog.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -33,6 +37,7 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     MatTableComponent,
     HumanizePipe,
     RecommendationDetailsComponent,
+    AddAccountDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +54,10 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     MatIconModule,
     MatMenuModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

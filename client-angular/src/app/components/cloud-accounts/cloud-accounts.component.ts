@@ -1,9 +1,10 @@
-import {Component, OnChanges, SimpleChanges} from '@angular/core';
+import {Component} from '@angular/core';
 import {CloudAccount} from 'src/app/models/cloud-account';
 import {CloudAccountsService} from 'src/app/services/cloud-accounts.service';
-import {ActivatedRoute, Router} from "@angular/router";
 import {RecommendationsService} from "../../services/recommendations.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatDialog} from "@angular/material/dialog";
+import {AddAccountDialogComponent} from "./add-account-dialog/add-account-dialog.component";
 
 @Component({
   selector: 'app-list',
@@ -19,7 +20,8 @@ export class CloudAccountsComponent {
 
   constructor(private cloudAccountsService: CloudAccountsService,
               private recommendationsService: RecommendationsService,
-              private _snackBar: MatSnackBar) {  }
+              private _snackBar: MatSnackBar,
+              public dialog: MatDialog) {  }
 
   ngOnInit() {
     this.load();
@@ -28,6 +30,16 @@ export class CloudAccountsComponent {
   load() {
     this.cloudAccountsService.getCloudAccounts().subscribe(data => {
       this.cloudAccounts = data;
+    });
+  }
+
+  onAdd() {
+    const dialogRef = this.dialog.open(AddAccountDialogComponent, {
+      // width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 
