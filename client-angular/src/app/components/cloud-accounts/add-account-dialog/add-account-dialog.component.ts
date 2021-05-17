@@ -28,8 +28,10 @@ export class AddAccountDialogComponent {
 
   onAddClick() {
     this._snackBar.open("Adding cloud account...", "Dismiss");
-    // this.cloudAccountsService.addCloudAccount(this.cloudProvider, this.displayName, this.accessKey, this.secretAccessKey)
-    //   .subscribe(data => {})
+    this.cloudAccountsService.addCloudAccount(this.cloudProvider, this.displayName, this.accessKey, this.secretAccessKey)
+      .subscribe(data => {
+        this.dialogRef.close();
+      })
   }
 
   onNoClick(): void {

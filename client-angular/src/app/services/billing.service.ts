@@ -14,7 +14,7 @@ export class BillingService {
   getCurrentBill(): Observable<any[]> {
     return this.http.get<{}[]>(this.billingUrl, {
       params: {
-        cloud_account: "60804727b9bd311668a8ad33"
+        cloud_account: "60a2cd9e0f44e1062c31e297"
       }
     });
   }
