@@ -4,17 +4,9 @@
   <h1 class="h3 mb-2 text-gray-800">Cloud Accounts</h1>
   <p class="mb-4">Here you can see all configured cloud accounts, and configure some more.</p>
 
-  <div class="row">
-    <div class="col-md-3">
-      <button type="button" class="btn btn-outline-primary btn-icon-split" data-toggle="modal"
-              data-target="#addCloudAccountModal">
-            <span class="icon text-white-50">
-              <i class="fas fa-plus"></i>
-            </span>
-        <span class="text">Create</span>
-      </button>
-    </div>
-  </div>
+  <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+    <mat-icon>add</mat-icon>
+  </button>
   <hr>
 
   <mat-card class="col-3" *ngFor="let account of cloudAccounts">
@@ -29,74 +21,14 @@
       <p class="card-text">Scan Interval: {{account.scanInterval}} Hours</p>
     </mat-card-content>
     <mat-card-actions align="end">
-      <button mat-icon-button mat-button>
+      <button mat-icon-button mat-button title="Scan" (click)="onScan(account._id)">
         <mat-icon>radar</mat-icon>
       </button>
-      <button mat-icon-button mat-button>
+      <button mat-icon-button mat-button title="View" routerLink="/recommendations">
         <mat-icon>visibility</mat-icon>
       </button>
-      <button mat-icon-button mat-button>
+      <button mat-icon-button mat-button title="Update">
         <mat-icon>settings</mat-icon>
       </button>
     </mat-card-actions>
   </mat-card>
-
-  <!-- Modal -->
-  <div class="modal fade" id="addCloudAccountModal" tabindex="-1" role="dialog" aria-labelledby="addCloudAccountModal"
-       aria-hidden="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add Cloud Account</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="display-name" class="col-form-label font-weight-bold">Display Name:</label>
-              <input type="text" class="form-control" id="display-name" #inpDisplayName/>
-            </div>
-            <div class="form-group">
-              <label for="manufacturer" class="col-form-label font-weight-bold">Manufacturer:</label>
-              <input type="text" class="form-control" id="manufacturer" #inpManufacturer/>
-            </div>
-            <div class="form-group">
-              <label for="imageUrl" class="col-form-label font-weight-bold">Image URL:</label>
-              <input type="url" class="form-control" id="imageUrl" #inpImageUrl/>
-            </div>
-            <div class="form-row">
-              <div class="col-md-6">
-                <label for="price" class="col-form-label font-weight-bold">Price:</label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">$</div>
-                  </div>
-                  <input type="number" class="form-control" id="price" [defaultValue]="0" #inpPrice/>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <label for="discount" class="col-form-label font-weight-bold">Discount:</label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">%</div>
-                  </div>
-                  <input type="number" class="form-control" id="discount" [defaultValue]="0" #inpDiscount/>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <!--        <button type="button" class="btn btn-primary"-->
-          <!--                (click)="onAdd(inpDisplayName.value, inpManufacturer.value, inpImageUrl.value, inpPrice.valueAsNumber, inpDiscount.valueAsNumber)"-->
-          <!--                data-dismiss="modal">-->
-          <!--          Save changes-->
-          <!--        </button>-->
-        </div>
-      </div>
-    </div>
-  </div>
-</div>

@@ -18,4 +18,10 @@ export class RecommendationsService {
       }
     });
   }
+
+  scanRecommendations(cloudAccountId: string): Observable<any[]> {
+    return this.http.post<any[]>(this.recommendationsUrl + "/scan", {
+      cloud_account: cloudAccountId
+    });
+  }
 }

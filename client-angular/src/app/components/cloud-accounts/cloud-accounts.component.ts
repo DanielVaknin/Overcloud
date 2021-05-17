@@ -2,6 +2,8 @@ import {Component, OnChanges, SimpleChanges} from '@angular/core';
 import {CloudAccount} from 'src/app/models/cloud-account';
 import {CloudAccountsService} from 'src/app/services/cloud-accounts.service';
 import {ActivatedRoute, Router} from "@angular/router";
+import {RecommendationsService} from "../../services/recommendations.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-list',
@@ -15,7 +17,9 @@ export class CloudAccountsComponent {
 
   cloudAccounts: CloudAccount[] = [];
 
-  constructor(private cloudAccountsService: CloudAccountsService, private activatedRoute: ActivatedRoute, private router: Router) {  }
+  constructor(private cloudAccountsService: CloudAccountsService,
+              private recommendationsService: RecommendationsService,
+              private _snackBar: MatSnackBar) {  }
 
   ngOnInit() {
     this.load();
@@ -27,23 +31,10 @@ export class CloudAccountsComponent {
     });
   }
 
-  // onAdd(displayName: string, manufacturer: string, imageUrl: string, price: number, discount: number) {
-  //   this.phonesService.addPhone(displayName, manufacturer, imageUrl, price, discount).subscribe(() => {
-  //     this.load();
-  //   });
-  // }
-
-  // onDelete(phoneId: string) {
-  //   this.phonesService.deletePhone(phoneId).subscribe(() => {
-  //     this.load();
-  //   });
-  // }
-
-  // onSearch(name: string, manufacturer: string, maxPrice: number) {
-  //   this.searchPhoneName = name ;
-  //   this.searchPhoneManufacturer = manufacturer;
-  //   this.searchPhoneMaxPrice = isNaN(maxPrice) ? Number.MAX_SAFE_INTEGER : maxPrice;
-  //
-  //   this.load();
-  // }
+  onScan(accountId: string) {
+    this._snackBar.open("Scanning account for recommendations...", "Dismiss");
+    this.recommendationsService.scanRecommendations(accountId).subscribe(data => {
+      console.log(data);
+    });
+  }
 }
