@@ -27,6 +27,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MDBBootstrapModule} from "angular-bootstrap-md";
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     HumanizePipe,
     RecommendationDetailsComponent,
     AddAccountDialogComponent,
+    BarChartComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MDBBootstrapModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

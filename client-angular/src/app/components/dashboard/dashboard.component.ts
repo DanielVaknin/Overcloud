@@ -28,24 +28,5 @@ export class DashboardComponent implements OnInit {
         this.currentBill = parseFloat(map.get("data")['currentBill']).toFixed(2).toString();
       }
     })
-    // this.phonesService.getPhones().subscribe(data => {
-    //   this.phones = data;
-    //   this.chartData.push({"Component": "Phones", "Count": data.length});
-    // });
-    //
-    // this.usersService.getUsers().subscribe(data => {
-    //   this.users = data;
-    //   this.chartData.push({"Component": "Users", "Count": data.length});
-    // })
-    //
-    // this.reviewsService.getReviews().subscribe(data => {
-    //   this.reviews = data;
-    //   this.chartData.push({"Component": "Reviews", "Count": data.length});
-    // })
-    //
-    // this.ordersService.getOrders().subscribe(data => {
-    //   this.orders = data;
-    //   this.chartData.push({"Component": "Orders", "Count": data.length});
-    // })
   }
 }
