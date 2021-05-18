@@ -1,7 +1,7 @@
 const CloudAccounts = require('../models/cloudAccount');
 
 module.exports.addCloudAccount = async (req, res, next) => {
-    const { displayName, cloudProvider, accessKey, secretKey } = req.body;
+    const { displayName, cloudProvider, accessKey, secretKey, scanInterval } = req.body;
     let cloudAccount = await CloudAccounts.checkIfCloudAccountExist(accessKey);
 
     if (cloudAccount) {
@@ -10,7 +10,7 @@ module.exports.addCloudAccount = async (req, res, next) => {
             "error": "Cloud account with access key " + accessKey + " already exists"
         });
     } else {
-        const cloudAccount = new CloudAccounts({displayName, cloudProvider, accessKey, secretKey})
+        const cloudAccount = new CloudAccounts({displayName, cloudProvider, accessKey, secretKey, scanInterval})
         await cloudAccount.save()
         res.json(cloudAccount)
     }

@@ -21,20 +21,28 @@ function Recommendations(props) {
         },
       })
       .then((res) => {
-        setRecommendations(res.data.recommendations);
+        //setRecommendations(res.data.recommendations);
         console.log(res.data.recommendations);
+        console.log(res.data.recommendations[0].collectTime.$date);
+        let arr = res.data.recommendations
+        arr.forEach(element => {
+          let date = new Date(element.collectTime.$date);
+          element.collectTime = date.toISOString().replace(/T/, ' ').replace(/\..+/, '');
+        });
+        console.log(arr);
+        setRecommendations(arr);
         var recommendationJson = res.data.recommendations[0];
         delete recommendationJson["data"];
         delete recommendationJson["accountId"];
         console.log(recommendationJson);
         let recommendationKeys = Object.keys(recommendationJson);
         let columns = recommendationKeys.map((item) => ({
-          title: item.toLocaleUpperCase(),
+          title: item.charAt(0).toLocaleUpperCase() + item.slice(1).split(/(?=[A-Z])/).join(" "),
           dataIndex: item,
           key: item,
         }));
         let operation = {
-          title: "Action",
+          title: "",
           dataIndex: "",
           key: "action",
           render: (text, record) => (
@@ -47,12 +55,51 @@ function Recommendations(props) {
             </Button>
           ),
         };
+        let operation2 = {
+          title: "",
+          dataIndex: "",
+          key: "action",
+          render: (text, record) => (
+            <Button
+              onClick={(e) => {
+                remediate(record.type, e);
+              }}
+            >
+              Remediate
+            </Button>
+          ),
+        };
         columns.push(operation); //add action title to columns array
-        columns = columns.filter((item) => item.title !== "_ID"); //remove unnecessary title ID from columns array
+        columns.push(operation2); //add action title to columns array
+        columns = columns.filter((item) => item.title !== "_id"); //remove unnecessary title ID from columns array
         setRecommendationKeys(columns);
         console.log(columns);
-      });
+      }).catch((e) => {
+        //Alert error to the user
+        console.log(e);
+        setError(e.response.data.error);
+        alert(error);
+      });;
   }, []);
+
+  const remediate = (recommendationType, e) => {
+    e.preventDefault();
+    alert(recommendationType +'will be remediated!')
+    axios
+      .post(`http://localhost:5000/recommendations/remediate`, 
+      {       
+          cloud_account: cloudAccountDetails._id,
+          recommendation_type: recommendationType,       
+      })
+      .then((res) => {
+        console.log(res);
+      }).catch((e) => {
+        //Alert error to the user
+        console.log(e);
+        setError(e.response.data.error);
+        alert(error);
+      });;
+  };
 
   const details = (recommendationType, e) => {
     e.preventDefault();
@@ -92,9 +139,13 @@ function Recommendations(props) {
     <div class="font">
       <Button onClick={goBack}>Back</Button>
       <Button onClick={() => scanRecommendations(cloudAccountDetails._id)}>Scan</Button>
-      <h1 class="font" id="title">
-        Recommendations for account {cloudAccountDetails.displayName}
+      <h1 style={{ color: "#4bb5db" }} id="title">
+        Recommendations for {cloudAccountDetails.displayName}
       </h1>
+      <h6 style={{ color: "#4bb5db" }} id="title">
+      <p>The following are recommendations that, if remediated, can save you a lot of money.</p>
+      <p>These recommendations are based on our (and AWS's) best-practices.</p>
+      </h6>
       {recommendationKeys.length && <Table dataSource={recommendations} columns={recommendationKeys} />}
     </div>
   );

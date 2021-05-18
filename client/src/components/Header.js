@@ -17,7 +17,12 @@ const Header = (props) => {
     const onLogout = (e) => {
         setIsLoggedIn(false);
         localStorage.removeItem('user')
-        history.push('/loginform')
+        localStorage.removeItem('cloudAccount')
+        history.push('/Loginform')
+    }
+
+    const onAddCloudAccount = (e) => {
+        localStorage.removeItem('cloudAccount')
     }
 
 
