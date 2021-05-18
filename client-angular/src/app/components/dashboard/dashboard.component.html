@@ -38,4 +38,5 @@
 </div>
 
 <hr/>
-<bar-chart></bar-chart>
+<mat-spinner class="mx-auto" matTooltip="Gathering recommendations data" *ngIf="isLoadingChartData"></mat-spinner>
+<bar-chart *ngIf="!isLoadingChartData" [chartDatasets]="chartDatasets" [chartLabels]="chartLabels"></bar-chart>

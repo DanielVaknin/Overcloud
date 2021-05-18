@@ -29,6 +29,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MDBBootstrapModule} from "angular-bootstrap-md";
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { BarChartComponent } from './components/bar-chart/bar-chart.component';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    MatProgressSpinnerModule,
     MDBBootstrapModule.forRoot()
   ],
   providers: [],

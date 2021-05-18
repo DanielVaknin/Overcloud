@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'bar-chart',
@@ -8,11 +8,9 @@ import { Component } from '@angular/core';
 export class BarChartComponent {
   public chartType: string = 'bar';
 
-  public chartDatasets: Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'My First dataset'}
-  ];
+  @Input() chartDatasets: Array<any> = [];
 
-  public chartLabels: Array<any> = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
+  @Input() chartLabels: Array<any> = [];
 
   public chartColors: Array<any> = [
     {
