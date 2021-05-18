@@ -10,7 +10,6 @@ import {AddAccountDialogComponent} from "./add-account-dialog/add-account-dialog
   selector: 'app-list',
   templateUrl: './cloud-accounts.component.html',
   styleUrls: ['./cloud-accounts.component.scss',
-    '../../vendor/fontawesome-free/css/all.min.css',
     '../../vendor/datatables/dataTables.bootstrap4.min.css'
   ]
 })

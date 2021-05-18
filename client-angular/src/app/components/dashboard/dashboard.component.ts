@@ -4,7 +4,7 @@ import {BillingService} from "../../services/billing.service";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss', '../../vendor/fontawesome-free/css/all.min.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
 
