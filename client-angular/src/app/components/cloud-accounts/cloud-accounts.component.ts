@@ -54,4 +54,8 @@ export class CloudAccountsComponent {
       console.log(data);
     });
   }
+
+  onDelete(accountId: string) {
+    this._snackBar.open("Cloud account deleted successfully!", "Dismiss");
+  }
 }
