@@ -4,7 +4,7 @@
   <h1 class="h3 mb-2 text-gray-800">Cloud Accounts</h1>
   <p class="mb-4">Here you can see all configured cloud accounts, and configure some more.</p>
 
-  <button mat-fab color="primary" (click)="onAdd()">
+  <button mat-fab matTooltip="Add account" color="primary" (click)="onAdd()">
     <mat-icon>add</mat-icon>
   </button>
   <hr>
@@ -21,13 +21,13 @@
       <p class="card-text">Scan Interval: {{account.scanInterval}} Hours</p>
     </mat-card-content>
     <mat-card-actions align="end">
-      <button mat-icon-button mat-button title="Scan" (click)="onScan(account._id)">
+      <button mat-icon-button mat-button matTooltip="Scan account for recommendations" (click)="onScan(account._id)">
         <mat-icon>radar</mat-icon>
       </button>
-      <button mat-icon-button mat-button title="View" routerLink="/recommendations">
+      <button mat-icon-button mat-button matTooltip="View account recommendations" routerLink="/recommendations">
         <mat-icon>visibility</mat-icon>
       </button>
-      <button mat-icon-button mat-button title="Update">
+      <button mat-icon-button mat-button matTooltip="Update account details">
         <mat-icon>settings</mat-icon>
       </button>
     </mat-card-actions>

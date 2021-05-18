@@ -26,6 +26,7 @@ import { AddAccountDialogComponent } from './components/cloud-accounts/add-accou
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {MatSelectModule} from "@angular/material/select";
     MatSnackBarModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
