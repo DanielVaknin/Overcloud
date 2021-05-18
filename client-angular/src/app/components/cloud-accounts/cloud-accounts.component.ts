@@ -15,6 +15,12 @@ import {AddAccountDialogComponent} from "./add-account-dialog/add-account-dialog
 })
 export class CloudAccountsComponent {
 
+  LOGOS: any = {
+    aws: 'assets/amazon-web-services-logo.svg',
+    azure: 'assets/azure-logo.svg',
+    gcp: 'assets/google-cloud-logo.svg'
+  }
+
   cloudAccounts: CloudAccount[] = [];
 
   constructor(private cloudAccountsService: CloudAccountsService,

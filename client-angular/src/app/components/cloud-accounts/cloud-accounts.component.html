@@ -11,14 +11,13 @@
 
   <mat-card class="col-3" *ngFor="let account of cloudAccounts">
     <mat-card-header>
-      <mat-card-title>{{account.cloudProvider}}</mat-card-title>
+      <img [src]="LOGOS[account.cloudProvider]" height="50" width="50">
 <!--      <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
     </mat-card-header>
-<!--    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
     <mat-card-content class="text-center">
       <h2 class="card-title">{{account.displayName}}</h2>
       <p class="card-text">Access Key: {{account.accessKey}}</p>
-      <p class="card-text">Scan Interval: {{account.scanInterval}} Hours</p>
+      <p class="card-text" *ngIf='account.scanInterval'>Scan Interval: every {{account.scanInterval}} Hours</p>
     </mat-card-content>
     <mat-card-actions align="end">
       <button mat-icon-button mat-button matTooltip="Scan account for recommendations" (click)="onScan(account._id)">
