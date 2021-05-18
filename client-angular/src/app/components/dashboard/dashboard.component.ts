@@ -10,7 +10,7 @@ import {RecommendationsService} from "../../services/recommendations.service";
 export class DashboardComponent implements OnInit {
 
   currentBill: string = "Calculating...";
-  billAfterSavings: string = "Calculating...";
+  possibleSavings: string = "Calculating...";
 
   chartDatasets: Array<any> = [];
   chartLabels: Array<any> = [];
@@ -36,14 +36,16 @@ export class DashboardComponent implements OnInit {
 
     // Get recommendations possible savings for the graph
     this.recommendationsService.getRecommendations().subscribe(data => {
+      let possibleSavings: number = 0;
       let chartData: number[] = [];
       let chartLabels: string[] = [];
 
       const map = new Map<string, any>(Object.entries(data));
       let recArr: any[] = map.get("recommendations");
 
-
       recArr.forEach(element => {
+        possibleSavings += parseFloat(element['totalPrice']);
+
         chartData.push(element['totalPrice']);
         chartLabels.push(element['name']);
       });
@@ -56,6 +58,7 @@ export class DashboardComponent implements OnInit {
       ];
 
       this.chartLabels = chartLabels;
+      this.possibleSavings = possibleSavings.toFixed(2).toString();
 
       this.isLoadingChartData = false;
     });
