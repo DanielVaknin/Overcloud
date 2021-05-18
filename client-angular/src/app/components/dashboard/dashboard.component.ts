@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
 
       this.chartDatasets = [
         {
-          label: 'Possible Savings',
+          label: 'Possible Savings ($)',
           data: chartData
         }
       ];
