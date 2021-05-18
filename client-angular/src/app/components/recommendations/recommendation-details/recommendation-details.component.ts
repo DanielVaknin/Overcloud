@@ -11,9 +11,12 @@ export class RecommendationDetailsComponent implements OnInit {
   tableCols: string[] = [];
   tableData: {}[] = [];
 
+  cloudAccountId: string = "";
   recType: string = "";
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {}) {
+    // @ts-ignore
+    this.cloudAccountId = data["cloudAccountId"]
     // @ts-ignore
     this.recType = data["recType"]
     // @ts-ignore
@@ -23,5 +26,9 @@ export class RecommendationDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  onRemediateClick(): void {
+    console.log(`Remediating recommendation ${this.recType} in cloud account ${this.cloudAccountId}`);
   }
 }

@@ -56,7 +56,7 @@ export class MatTableComponent implements OnInit, OnChanges {
     this.columnsToDisplay = this.tableCols.filter(el => !this.tableColsToHide.includes(el))
   }
 
-  onRecommendationClick(recType: string) {
+  onRecommendationClick(accountId: string, recType: string) {
     // @ts-ignore
     const currentRec = this.tableData.find(({type}) => type === recType);
     // @ts-ignore
@@ -68,6 +68,7 @@ export class MatTableComponent implements OnInit, OnChanges {
 
       const dialogRef = this.dialog.open(RecommendationDetailsComponent, {
         data: {
+          cloudAccountId: accountId,
           recType: recType,
           tableCols: this.innerTableCols,
           tableData: this.innerTableData
