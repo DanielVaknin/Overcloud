@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import ReactEcharts from "echarts-for-react";
+import { Card } from "./Card";
 import axios from "axios";
-import './Dashboard.css';
+import "./Dashboard.css";
 
 export default function Dashboard() {
 	const cloudAccountDetails = JSON.parse(localStorage.getItem("cloudAccount"));
 	const [chartData, setChartData] = useState({});
-	const [error, setError] = useState("");
+	const [currentBill, setCurrentBill] = useState("");
+	const [sub, setSub] = useState("");
 	useEffect(() => {
+		if(!!cloudAccountDetails){
 		axios
 			.get(`http://localhost:5000/recommendations`, {
 				params: {
@@ -15,31 +18,37 @@ export default function Dashboard() {
 				},
 			})
 			.then((res) => {
-                const xData = [];
-                const yData = [];
+				const xData = [];
+				const yData = [];
+				let total = 0;
 
-                for (const recommendation of res.data.recommendations) {
-                    xData.push(recommendation.name);
-                    yData.push(recommendation.totalPrice);
-                }
+				for (const recommendation of res.data.recommendations) {
+					xData.push(recommendation.name);
+					yData.push(recommendation.totalPrice);
+
+					if (recommendation.totalPrice) {
+						total += recommendation.totalPrice;
+					}
+				}
 
 				const options = {
-                    tooltip: {
-                        trigger: 'item'
-                    },
+					tooltip: {
+						trigger: "item",
+					},
 
 					xAxis: {
 						type: "category",
-                        data: xData
+						data: xData,
 					},
 					yAxis: {
 						type: "value",
+						splitLine: false,
 					},
 					series: [
 						{
-                            data: yData,
+							data: yData,
 							type: "bar",
-							showBackground: true,
+							barCategoryGap: "90px",
 							backgroundStyle: {
 								color: "rgba(180, 180, 180, 0.2)",
 							},
@@ -47,23 +56,22 @@ export default function Dashboard() {
 					],
 				};
 
-                setChartData(options);
-			}).catch((e) => {
-				//Alert error to the user
-				console.log(e);
-				setError(e.response.data.error);
-				alert(error);
-			  });
-	}, []);
+				axios.get(`http://localhost:5000/cloud-accounts/billing?cloud_account=${cloudAccountDetails["_id"]}`).then((res) => {
+					setCurrentBill(`${Math.round(res.data.data.currentBill)}$`);
+					setSub(`${Math.round(res.data.data.currentBill - total)}$`);
+				});
+				setChartData(options);
+			});
+		}
+	}, [cloudAccountDetails]);
 
-
-    
 	return (
-        
-        
-		<ReactEcharts
-        style={{height: '600px'}}
-			option={chartData}
-		/>
+		<>
+			<div className="cards-container">
+				<Card title="Current Cost" ammount={currentBill}></Card>
+				<Card title="Cost After Savings" ammount={sub}></Card>
+			</div>
+			<ReactEcharts style={{ height: "500px", width:"1200px" }} option={chartData} />
+		</>
 	);
 }

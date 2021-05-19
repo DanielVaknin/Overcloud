@@ -1,0 +1,15 @@
+.side-menu {
+    width: 230px;
+    display: flex;
+    height: 100%;
+}
+
+.side-menu>.navbar {
+    width: 100% !important;
+    flex-direction: column;
+}
+
+.content-container {
+    display: flex;
+    height: 100%;
+}

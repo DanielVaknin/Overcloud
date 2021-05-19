@@ -25,8 +25,9 @@ function Loginform(props) {
                     history.push('./Dashboard')
                 }, 200);
             }).catch(e => {
-            if (e.response.status === 400) {
-                setError("User doesn't exist");
+                console.log(e.response)
+            if (e.response.status === 401) {
+                setError("User doesn't exist or Password is incorrect");
                 alert(error)
             }
         });

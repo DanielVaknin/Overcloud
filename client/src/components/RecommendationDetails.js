@@ -44,6 +44,10 @@ function RecommendationDetails(props) {
         .then((res) => {
           console.log(res.data);
           console.log(res.data.recommendations);
+          // let arr = res.data.recommendations[0].data
+          // arr.forEach(element => {
+          //   element.totalPrice = element.totalPrice + "$"
+          // });
           setRecommendationDetails(res.data.recommendations[0].data);
           setRecommendationName(res.data.recommendations[0].name);
           console.log(res.data.recommendations[0].data.length);

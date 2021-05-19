@@ -28,6 +28,7 @@ function Recommendations(props) {
         arr.forEach(element => {
           let date = new Date(element.collectTime.$date);
           element.collectTime = date.toISOString().replace(/T/, ' ').replace(/\..+/, '');
+          element.totalPrice = element.totalPrice + "$"
         });
         console.log(arr);
         setRecommendations(arr);
@@ -76,7 +77,7 @@ function Recommendations(props) {
         console.log(columns);
       }).catch((e) => {
         //Alert error to the user
-        console.log(e);
+        console.log(e.response);
         setError(e.response.data.error);
         alert(error);
       });;

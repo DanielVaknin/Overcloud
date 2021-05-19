@@ -34,8 +34,9 @@ function Register(props) {
                 history.push('/Loginform')
             }).catch(e => {
                 if (e.response.status === 400) {
-                    setError("error cannot register");
-                    console.log("error register", error)
+                    setError(e.response.data);
+                    alert(e.response.data)
+                    console.log("error register", e.response.data)
                 }
 
             });
