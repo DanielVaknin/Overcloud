@@ -38,7 +38,6 @@ const Menu = (props) => {
       });
   }, [props]);
 
-
   const onChange = (value) => {
     console.log(value[0]);
     let selectedName = value[0];
@@ -48,15 +47,19 @@ const Menu = (props) => {
     localStorage.setItem("cloudAccount", JSON.stringify(selectedAccount));
   };
 
-  const Recommendations = () =>{
+  const Recommendations = () => {
     let currentAccount = JSON.parse(localStorage.getItem("cloudAccount"));
-    console.log(currentAccount)
+    console.log(currentAccount);
     history.push(`/Recommendations/${currentAccount._id}`);
-  }
+  };
 
   return (
     <Navbar bg="dark" variant="dark">
-      <Cascader options={options} onChange={onChange} defaultValue={[cloudAccount.displayName]} />,
+      {cloudAccount ? (
+        <Cascader options={options} onChange={onChange} defaultValue={[cloudAccount.displayName]} />
+      ) : (
+        <Cascader options={options} onChange={onChange} placeHolder="Select cloud account" />
+      )}
       {isLoggedIn ? (
         <Nav className="mr-auto flex-column">
           <Nav.Link href="/AddCloudAccount">Add Cloud Account</Nav.Link>
