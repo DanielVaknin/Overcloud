@@ -6,7 +6,7 @@
   <button mat-raised-button color="warn">Remediate All</button>
   <hr>
 
-  <mat-spinner class="mx-auto" matTooltip="Loading recommendations" *ngIf="isLoading"></mat-spinner>
+  <mat-progress-bar mode="indeterminate" matTooltip="Loading recommendations" *ngIf="isLoading"></mat-progress-bar>
   <app-mat-table
     [tableData]="tableData"
     [tableColumns]="tableCols"

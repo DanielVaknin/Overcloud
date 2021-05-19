@@ -30,6 +30,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {MDBBootstrapModule} from "angular-bootstrap-md";
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatSelectModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
     MDBBootstrapModule.forRoot()
   ],
   providers: [],

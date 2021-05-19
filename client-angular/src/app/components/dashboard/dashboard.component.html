@@ -38,7 +38,8 @@
 </div>
 
 <hr/>
-<mat-spinner class="mx-auto" matTooltip="Gathering recommendations data" *ngIf="isLoadingChartData"></mat-spinner>
+<!--<mat-spinner class="mx-auto" matTooltip="Gathering recommendations data" *ngIf="isLoadingChartData"></mat-spinner>-->
+<mat-progress-bar mode="indeterminate" matTooltip="Gathering recommendations data" *ngIf="isLoadingChartData"></mat-progress-bar>
 <div class="row">
   <bar-chart class="col-xl-6 col-md-6 mb-4" *ngIf="!isLoadingChartData" [chartDatasets]="chartDatasets" [chartLabels]="chartLabels"></bar-chart>
 </div>
