@@ -17,6 +17,8 @@ export class RecommendationsComponent implements OnInit {
     "type"
   ]
 
+  isLoading = true;
+
   constructor(private recommendationsService: RecommendationsService) {
   }
 
@@ -29,6 +31,8 @@ export class RecommendationsComponent implements OnInit {
       const map = new Map<string, any>(Object.entries(data));
 
       if (map.has("recommendations") && map.get("recommendations") !== undefined) {
+        this.isLoading = false;
+
         // Get table columns (headers)
         this.tableCols =  Object.keys(map.get("recommendations")[0])
           // .filter((value) => value !== "_id")
