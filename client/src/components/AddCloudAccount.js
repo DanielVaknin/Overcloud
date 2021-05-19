@@ -70,6 +70,7 @@ function AddCloudAccount(props) {
           .catch((addAccountError) => {
             //Alert error o the user
             console.log(addAccountError.response.data);
+            console.log(addAccountError.response);
             setError(addAccountError.response.data.error);
             alert(error);
           });

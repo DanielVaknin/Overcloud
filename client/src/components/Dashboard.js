@@ -10,6 +10,7 @@ export default function Dashboard() {
 	const [currentBill, setCurrentBill] = useState("");
 	const [sub, setSub] = useState("");
 	useEffect(() => {
+		if(!!cloudAccountDetails){
 		axios
 			.get(`http://localhost:5000/recommendations`, {
 				params: {
@@ -61,7 +62,8 @@ export default function Dashboard() {
 				});
 				setChartData(options);
 			});
-	}, []);
+		}
+	}, [cloudAccountDetails]);
 
 	return (
 		<>
