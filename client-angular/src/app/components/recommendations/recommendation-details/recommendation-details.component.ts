@@ -1,5 +1,6 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-recommendation-details',
@@ -14,7 +15,8 @@ export class RecommendationDetailsComponent implements OnInit {
   cloudAccountId: string = "";
   recType: string = "";
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {}) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {},
+              private _snackBar: MatSnackBar) {
     // @ts-ignore
     this.cloudAccountId = data["cloudAccountId"]
     // @ts-ignore
@@ -29,6 +31,7 @@ export class RecommendationDetailsComponent implements OnInit {
   }
 
   onRemediateClick(): void {
+    this._snackBar.open(`Remediating recommendation: ${this.recType}`, "Dismiss");
     console.log(`Remediating recommendation ${this.recType} in cloud account ${this.cloudAccountId}`);
   }
 }

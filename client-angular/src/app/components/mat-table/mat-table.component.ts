@@ -67,6 +67,9 @@ export class MatTableComponent implements OnInit, OnChanges {
       this.innerTableData = currentRec["data"];
 
       const dialogRef = this.dialog.open(RecommendationDetailsComponent, {
+        restoreFocus: false,
+        autoFocus: false,
+        width: "1500px",
         data: {
           cloudAccountId: accountId,
           recType: recType,
