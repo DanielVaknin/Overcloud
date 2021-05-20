@@ -10,7 +10,17 @@ import {environment} from "../../environments/environment";
 export class CloudAccountsService {
   private cloudAccountsUrl = environment.cloudAccountsUrl;
 
+  private currentCloudAccount: string = "";
+
   constructor(private http: HttpClient) { }
+
+  setCurrentAccount(accountId: string): void {
+    this.currentCloudAccount = accountId;
+  }
+
+  getCurrentAccount(): string {
+    return this.currentCloudAccount;
+  }
 
   getCloudAccounts(): Observable<CloudAccount[]> {
     return this.http.get<CloudAccount[]>(this.cloudAccountsUrl);

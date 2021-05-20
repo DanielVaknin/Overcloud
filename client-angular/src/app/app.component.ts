@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from "./services/auth.service";
 import {Router} from "@angular/router";
+import {CloudAccountsService} from "./services/cloud-accounts.service";
+import {CloudAccount} from "./models/cloud-account";
 
 @Component({
   selector: 'app-root',
@@ -9,8 +11,16 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
   title = 'OverCloud';
+  cloudAccounts: CloudAccount[] = [];
+  selectedCloudAccount: string = "";
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService,
+              private router: Router,
+              private cloudAccountsService: CloudAccountsService) {
+    this.cloudAccountsService.getCloudAccounts().subscribe(data => {
+      this.cloudAccounts = data;
+      this.onCurrentCloudAccountChange(data[0]._id);
+    });
   }
 
   isAuthenticated() {
@@ -24,5 +34,10 @@ export class AppComponent {
   onLogout() {
     this.authService.removeUserInfo();
     this.router.navigate(['/login']);
+  }
+
+  onCurrentCloudAccountChange(accountId: string) {
+    this.selectedCloudAccount = accountId;
+    this.cloudAccountsService.setCurrentAccount(accountId);
   }
 }

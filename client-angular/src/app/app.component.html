@@ -19,6 +19,13 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
+    <mat-form-field appearance="fill">
+      <mat-label style="color: white">Select cloud account</mat-label>
+      <mat-select disableRipple [ngModel]="selectedCloudAccount" (ngModelChange)="onCurrentCloudAccountChange($event)">
+        <mat-option *ngFor="let account of cloudAccounts" [value]="account._id">{{account.displayName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
       <a class="nav-link" routerLink="/" routerLinkActive="active">
