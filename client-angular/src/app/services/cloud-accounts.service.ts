@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {HttpClient} from "@angular/common/http";
 import {CloudAccount} from "../models/cloud-account";
 import {environment} from "../../environments/environment";
@@ -11,11 +11,14 @@ export class CloudAccountsService {
   private cloudAccountsUrl = environment.cloudAccountsUrl;
 
   private currentCloudAccount: string = "";
+  public currentCloudAccountChange: Subject<string> = new Subject<string>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.currentCloudAccountChange.subscribe(data => this.currentCloudAccount = data);
+  }
 
   setCurrentAccount(accountId: string): void {
-    this.currentCloudAccount = accountId;
+    this.currentCloudAccountChange.next(accountId);
   }
 
   getCurrentAccount(): string {

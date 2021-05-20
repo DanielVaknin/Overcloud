@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BillingService} from "../../services/billing.service";
 import {RecommendationsService} from "../../services/recommendations.service";
+import {CloudAccountsService} from "../../services/cloud-accounts.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +18,9 @@ export class DashboardComponent implements OnInit {
   isLoadingChartData = true;
 
   constructor(private billingService: BillingService,
-              private recommendationsService: RecommendationsService) {
+              private recommendationsService: RecommendationsService,
+              private cloudAccountsService: CloudAccountsService) {
+    this.cloudAccountsService.currentCloudAccountChange.subscribe(data => this.load());
   }
 
   ngOnInit() {
@@ -25,42 +28,49 @@ export class DashboardComponent implements OnInit {
   }
 
   load() {
-    // Get current bill
-    this.billingService.getCurrentBill().subscribe(data => {
-      const map = new Map<string, any>(Object.entries(data));
+    this.isLoadingChartData = true;
+    this.currentBill = "Calculating...";
+    this.possibleSavings = "Calculating...";
+    const currentCloudAccount = this.cloudAccountsService.getCurrentAccount();
 
-      if (map.has("data") && map.get("data")["currentBill"] !== undefined) {
-        this.currentBill = parseFloat(map.get("data")['currentBill']).toFixed(2).toString();
-      }
-    });
+    if (currentCloudAccount !== "") {
+      // Get current bill
+      this.billingService.getCurrentBillForCloudAccount(currentCloudAccount).subscribe(data => {
+        const map = new Map<string, any>(Object.entries(data));
 
-    // Get recommendations possible savings for the graph
-    this.recommendationsService.getRecommendations().subscribe(data => {
-      let possibleSavings: number = 0;
-      let chartData: number[] = [];
-      let chartLabels: string[] = [];
-
-      const map = new Map<string, any>(Object.entries(data));
-      let recArr: any[] = map.get("recommendations");
-
-      recArr.forEach(element => {
-        possibleSavings += parseFloat(element['totalPrice']);
-
-        chartData.push(element['totalPrice']);
-        chartLabels.push(element['name']);
+        if (map.has("data") && map.get("data")["currentBill"] !== undefined) {
+          this.currentBill = parseFloat(map.get("data")['currentBill']).toFixed(2).toString();
+        }
       });
 
-      this.chartDatasets = [
-        {
-          label: 'Possible Savings ($)',
-          data: chartData
-        }
-      ];
+      // Get recommendations possible savings for the graph
+      this.recommendationsService.getRecommendationsForCloudAccount(currentCloudAccount).subscribe(data => {
+        let possibleSavings: number = 0;
+        let chartData: number[] = [];
+        let chartLabels: string[] = [];
 
-      this.chartLabels = chartLabels;
-      this.possibleSavings = possibleSavings.toFixed(2).toString();
+        const map = new Map<string, any>(Object.entries(data));
+        let recArr: any[] = map.get("recommendations");
 
-      this.isLoadingChartData = false;
-    });
+        recArr.forEach(element => {
+          possibleSavings += parseFloat(element['totalPrice']);
+
+          chartData.push(element['totalPrice']);
+          chartLabels.push(element['name']);
+        });
+
+        this.chartDatasets = [
+          {
+            label: 'Possible Savings ($)',
+            data: chartData
+          }
+        ];
+
+        this.chartLabels = chartLabels;
+        this.possibleSavings = possibleSavings.toFixed(2).toString();
+
+        this.isLoadingChartData = false;
+      });
+    }
   }
 }

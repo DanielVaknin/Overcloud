@@ -11,10 +11,18 @@ export class RecommendationsService {
 
   constructor(private http: HttpClient) { }
 
-  getRecommendations(): Observable<any[]> {
+  // getRecommendations(): Observable<any[]> {
+  //   return this.http.get<any[]>(this.recommendationsUrl, {
+  //     params: {
+  //       cloud_account: "60a2cd9e0f44e1062c31e297"
+  //     }
+  //   });
+  // }
+
+  getRecommendationsForCloudAccount(accountId: string): Observable<any[]> {
     return this.http.get<any[]>(this.recommendationsUrl, {
       params: {
-        cloud_account: "60a2cd9e0f44e1062c31e297"
+        cloud_account: accountId
       }
     });
   }
