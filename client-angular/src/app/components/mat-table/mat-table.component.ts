@@ -60,7 +60,7 @@ export class MatTableComponent implements OnInit, OnChanges {
     // @ts-ignore
     const currentRec = this.tableData.find(({type}) => type === recType);
     // @ts-ignore
-    if (currentRec !== undefined && currentRec["data"] !== undefined) {
+    if (currentRec !== undefined && currentRec.hasOwnProperty("data") && currentRec["data"].length > 0) {
       // @ts-ignore
       this.innerTableCols = Object.keys(currentRec["data"][0])
       // @ts-ignore
