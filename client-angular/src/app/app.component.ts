@@ -21,6 +21,7 @@ export class AppComponent {
       this.cloudAccounts = data;
       this.onCurrentCloudAccountChange(data[0]._id);
     });
+    this.cloudAccountsService.currentCloudAccountChange.subscribe(data => this.selectedCloudAccount = data);
   }
 
   isAuthenticated() {

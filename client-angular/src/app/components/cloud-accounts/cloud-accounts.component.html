@@ -26,7 +26,7 @@
                   (click)="onScan(account._id)">
             <mat-icon>radar</mat-icon>
           </button>
-          <button mat-icon-button mat-button matTooltip="View account recommendations" routerLink="/recommendations">
+          <button mat-icon-button mat-button matTooltip="View account recommendations" (click)="onViewRecommendations(account._id)">
             <mat-icon>visibility</mat-icon>
           </button>
           <button mat-icon-button mat-button matTooltip="Update account details">

@@ -5,6 +5,7 @@ import {RecommendationsService} from "../../services/recommendations.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {AddAccountDialogComponent} from "./add-account-dialog/add-account-dialog.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-list',
@@ -26,7 +27,8 @@ export class CloudAccountsComponent {
   constructor(private cloudAccountsService: CloudAccountsService,
               private recommendationsService: RecommendationsService,
               private _snackBar: MatSnackBar,
-              public dialog: MatDialog) {  }
+              public dialog: MatDialog,
+              private router: Router) {  }
 
   ngOnInit() {
     this.load();
@@ -54,6 +56,11 @@ export class CloudAccountsComponent {
     this.recommendationsService.scanRecommendations(accountId).subscribe(data => {
       console.log(data);
     });
+  }
+
+  onViewRecommendations(accountId: string) {
+    this.cloudAccountsService.setCurrentAccount(accountId);
+    this.router.navigate(['/recommendations'])
   }
 
   onDelete(accountId: string) {
