@@ -42,6 +42,12 @@ export class RecommendationsComponent implements OnInit {
         if (map.has("recommendations") && map.get("recommendations") !== undefined) {
           this.isLoading = false;
 
+          if (map.get("recommendations")[0] === null) {
+            this.tableCols = [];
+            this.tableData = [];
+            return
+          }
+
           // Get table columns (headers)
           this.tableCols = Object.keys(map.get("recommendations")[0])
           // .filter((value) => value !== "_id")
