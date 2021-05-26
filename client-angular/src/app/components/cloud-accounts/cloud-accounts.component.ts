@@ -61,6 +61,13 @@ export class CloudAccountsComponent {
   }
 
   onDelete(accountId: string) {
-    this._snackBar.open("Cloud account deleted successfully!", "Dismiss");
+    this.recommendationsService.deleteRecommendationsForCloudAccount(accountId).subscribe(data => {
+      this._snackBar.open("Deleted recommendations for cloud account", "Dismiss");
+
+      this.cloudAccountsService.deleteCloudAccount(accountId).subscribe(data => {
+        this._snackBar.open("Deleted cloud account", "Dismiss");
+        location.reload();
+      });
+    });
   }
 }

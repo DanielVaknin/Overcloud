@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject} from 'rxjs';
-import {HttpClient} from "@angular/common/http";
+import {Observable, Subject, throwError} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {CloudAccount} from "../models/cloud-account";
 import {environment} from "../../environments/environment";
+import {catchError} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class CloudAccountsService {
   }
 
   private cloudAccountsUrl = environment.cloudAccountsUrl;
+  private cloudAccountsPythonUrl = environment.cloudAccountsPythonUrl;
 
   private currentCloudAccount: string = "";
   public currentCloudAccountChange: Subject<string> = new Subject<string>();
@@ -41,12 +43,27 @@ export class CloudAccountsService {
     return this.http.get<CloudAccount>(url);
   }
 
+  deleteCloudAccount(id: string): Observable<CloudAccount> {
+    const url = `${this.cloudAccountsUrl}/${id}`;
+    return this.http.delete<CloudAccount>(url);
+  }
+
   addCloudAccount(provider: string, displayName: string, accessKey: string, secretAccessKey: string) {
     return this.http.post<CloudAccount>(this.cloudAccountsUrl, {
       cloudProvider: provider,
       displayName: displayName,
       accessKey: accessKey,
       secretKey: secretAccessKey
-    })
+    });
+  }
+
+  validateCloudAccount(provider: string, accessKey: string, secretAccessKey: string) {
+    return this.http.post<CloudAccount>(this.cloudAccountsPythonUrl + '/validate', {
+      cloudProvider: provider,
+      credentials: {
+        accessKey: accessKey,
+        secretKey: secretAccessKey
+      }
+    });
   }
 }

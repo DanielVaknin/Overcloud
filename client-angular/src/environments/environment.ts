@@ -4,10 +4,15 @@
 
 export const environment = {
   production: false,
+
+  // NodeJS URLs
   authUrl: 'http://localhost:8080/api/auth',
   cloudAccountsUrl: 'http://localhost:8080/api/cloud-accounts',
+
+  // Python URLs
   recommendationsUrl: 'http://localhost:5000/recommendations',
   billingUrl: 'http://localhost:5000/cloud-accounts/billing',
+  cloudAccountsPythonUrl: 'http://localhost:5000/cloud-accounts',
 };
 
 /*

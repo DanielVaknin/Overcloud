@@ -32,4 +32,12 @@ export class RecommendationsService {
       cloud_account: cloudAccountId
     });
   }
+
+  deleteRecommendationsForCloudAccount(accountId: string): Observable<any> {
+    return this.http.delete(this.recommendationsUrl, {
+      params: {
+        cloud_account: accountId
+      }
+    });
+  }
 }

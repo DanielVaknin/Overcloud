@@ -24,14 +24,21 @@ export class AddAccountDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<AddAccountDialogComponent>,
     private cloudAccountsService: CloudAccountsService,
-    private _snackBar: MatSnackBar) {}
+    private _snackBar: MatSnackBar) {
+  }
 
   onAddClick() {
-    this._snackBar.open("Adding cloud account...", "Dismiss");
-    this.cloudAccountsService.addCloudAccount(this.cloudProvider, this.displayName, this.accessKey, this.secretAccessKey)
+    this.cloudAccountsService.validateCloudAccount(this.cloudProvider, this.accessKey, this.secretAccessKey)
       .subscribe(data => {
-        this.dialogRef.close();
-      })
+        this.cloudAccountsService.addCloudAccount(this.cloudProvider, this.displayName, this.accessKey, this.secretAccessKey)
+          .subscribe(data => {
+            this._snackBar.open("Cloud account added successfully!", "Dismiss");
+            this.dialogRef.close();
+            location.reload();
+          });
+      }, error => {
+        this._snackBar.open(error['error']['error'], "Dismiss")
+      });
   }
 
   onNoClick(): void {
