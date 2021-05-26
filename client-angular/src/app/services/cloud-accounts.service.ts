@@ -8,6 +8,13 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class CloudAccountsService {
+
+  CLOUD_PROVIDERS_LOGOS: any = {
+    aws: 'assets/amazon-web-services-logo.svg',
+    azure: 'assets/azure-logo.svg',
+    gcp: 'assets/google-cloud-logo.svg'
+  }
+
   private cloudAccountsUrl = environment.cloudAccountsUrl;
 
   private currentCloudAccount: string = "";

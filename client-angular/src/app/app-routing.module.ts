@@ -10,7 +10,6 @@ const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate : [AuthGuard] },
   { path: 'cloud-accounts', component: CloudAccountsComponent, canActivate : [AuthGuard] },
   { path: 'recommendations', component: RecommendationsComponent, canActivate : [AuthGuard] },
-  // { path: 'phones/:id', component: UpdatePhoneComponent, canActivate : [AuthGuard] },
   { path: 'login', component : LoginComponent}
 ];
 

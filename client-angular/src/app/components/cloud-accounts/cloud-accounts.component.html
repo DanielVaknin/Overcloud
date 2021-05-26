@@ -13,7 +13,7 @@
     <div class="col-sm-3" *ngFor="let account of cloudAccounts">
       <mat-card>
         <mat-card-header>
-          <img [src]="LOGOS[account.cloudProvider]" height="50" width="50" alt="account.cloudProvider">
+          <img [src]="CLOUD_PROVIDERS_LOGOS[account.cloudProvider]" height="50" width="50" alt="account.cloudProvider">
           <!--      <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
         </mat-card-header>
         <mat-card-content class="text-center">
@@ -39,3 +39,4 @@
       </mat-card>
     </div>
   </div>
+</div>

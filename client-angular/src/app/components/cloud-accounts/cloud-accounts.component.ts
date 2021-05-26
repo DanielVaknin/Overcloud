@@ -16,19 +16,16 @@ import {Router} from "@angular/router";
 })
 export class CloudAccountsComponent {
 
-  LOGOS: any = {
-    aws: 'assets/amazon-web-services-logo.svg',
-    azure: 'assets/azure-logo.svg',
-    gcp: 'assets/google-cloud-logo.svg'
-  }
-
+  CLOUD_PROVIDERS_LOGOS: any;
   cloudAccounts: CloudAccount[] = [];
 
   constructor(private cloudAccountsService: CloudAccountsService,
               private recommendationsService: RecommendationsService,
               private _snackBar: MatSnackBar,
               public dialog: MatDialog,
-              private router: Router) {  }
+              private router: Router) {
+    this.CLOUD_PROVIDERS_LOGOS = cloudAccountsService.CLOUD_PROVIDERS_LOGOS;
+  }
 
   ngOnInit() {
     this.load();
