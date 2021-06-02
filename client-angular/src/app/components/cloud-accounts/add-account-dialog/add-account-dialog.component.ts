@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import {CloudAccountsService} from "../../../services/cloud-accounts.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {RecommendationsService} from "../../../services/recommendations.service";
 
 @Component({
   selector: 'app-add-account-dialog',
@@ -25,6 +26,7 @@ export class AddAccountDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<AddAccountDialogComponent>,
     private cloudAccountsService: CloudAccountsService,
+    private recommendationsService: RecommendationsService,
     private _snackBar: MatSnackBar) {
   }
 
@@ -33,9 +35,13 @@ export class AddAccountDialogComponent {
       .subscribe(data => {
         this.cloudAccountsService.addCloudAccount(this.cloudProvider, this.displayName, this.accessKey, this.secretAccessKey, this.scanInterval)
           .subscribe(data => {
-            this._snackBar.open("Cloud account added successfully!", "Dismiss");
-            this.dialogRef.close();
-            location.reload();
+            this.recommendationsService.addRecommendationsScanSchedule(data._id, this.scanInterval).subscribe(data => {
+              this._snackBar.open("Cloud account added successfully!", "Dismiss");
+              this.dialogRef.close();
+              location.reload();
+            }, error => {
+              this._snackBar.open(error['error']['error'], "Dismiss")
+            });
           });
       }, error => {
         this._snackBar.open(error['error']['error'], "Dismiss")

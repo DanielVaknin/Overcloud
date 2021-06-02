@@ -58,8 +58,6 @@ export class CloudAccountsService {
     });
   }
 
-  // addCloudAccountScanSchedule()
-
   validateCloudAccount(provider: string, accessKey: string, secretAccessKey: string) {
     return this.http.post<CloudAccount>(this.cloudAccountsPythonUrl + '/validate', {
       cloudProvider: provider,
