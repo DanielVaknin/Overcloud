@@ -6,10 +6,12 @@
   "scripts": {
     "server": "cd server && npm start",
     "client": "cd client && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client-angular": "cd client-angular && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run client-angular\"",
     "server-install": "cd server && npm install",
     "client-install": "cd client && npm install",
-    "install-all": "concurrently \"npm install\" \"npm run server-install\" \"npm run client-install\""
+    "client-angular-install": "cd client-angular && npm install",
+    "install-all": "concurrently \"npm install\" \"npm run server-install\" \"npm run client-install\" \"npm run client-angular-install\""
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,42 @@
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Cloud Accounts</h1>
+  <p class="mb-4">Here you can see all configured cloud accounts, and configure some more.</p>
+
+  <button mat-fab matTooltip="Add account" color="primary" (click)="onAdd()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <hr>
+
+  <div class="row">
+    <div class="col-sm-3" *ngFor="let account of cloudAccounts">
+      <mat-card>
+        <mat-card-header>
+          <img [src]="CLOUD_PROVIDERS_LOGOS[account.cloudProvider]" height="50" width="50" alt="account.cloudProvider">
+          <!--      <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+        </mat-card-header>
+        <mat-card-content class="text-center">
+          <h2 class="card-title">{{account.displayName}}</h2>
+          <p class="card-text">Access Key: {{account.accessKey}}</p>
+          <p class="card-text" *ngIf='account.scanInterval'>Scan Interval: every {{account.scanInterval}} Hours</p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-icon-button mat-button matTooltip="Scan account for recommendations"
+                  (click)="onScan(account._id)">
+            <mat-icon>radar</mat-icon>
+          </button>
+          <button mat-icon-button mat-button matTooltip="View account recommendations" (click)="onViewRecommendations(account._id)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button mat-button matTooltip="Update account details">
+            <mat-icon>settings</mat-icon>
+          </button>
+          <button mat-icon-button mat-button matTooltip="Delete account" (click)="onDelete(account._id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

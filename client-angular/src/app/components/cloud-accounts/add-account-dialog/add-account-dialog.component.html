@@ -1,0 +1,34 @@
+<h1 mat-dialog-title class="text-center">Add Cloud Account</h1>
+<hr>
+<div mat-dialog-content class="text-center">
+  <mat-form-field appearance="fill">
+    <mat-label>Cloud Provider</mat-label>
+    <mat-select [(value)]="cloudProvider" >
+      <mat-option *ngFor="let provider of CLOUD_PROVIDERS" [value]="provider.value" [disabled]="provider.disabled">
+        {{provider.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Display Name</mat-label>
+    <input matInput placeholder="Choose a unique name" [(ngModel)]="displayName">
+    <mat-icon matSuffix>textsms</mat-icon>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Access Key</mat-label>
+    <input matInput [(ngModel)]="accessKey">
+    <mat-icon matSuffix>vpn_key</mat-icon>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Secret Access Key</mat-label>
+    <input type="password" matInput [(ngModel)]="secretAccessKey">
+    <mat-icon matSuffix>lock</mat-icon>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onAddClick()">Add</button>
+</div>

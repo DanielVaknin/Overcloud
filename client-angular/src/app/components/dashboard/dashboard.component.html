@@ -1,0 +1,45 @@
+<div class="row">
+
+  <div class="col-xl-6 col-md-6 mb-4">
+    <div class="card border-danger border-bottom-danger shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2 text-center">
+            <div class="text-xl-center font-weight-bold text-danger text-uppercase mb-1">
+              Current Monthly Cost
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">{{currentBill}}</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-6 col-md-6 mb-4" routerLink="/orders">
+    <div class="card border-success border-bottom-success shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2 text-center">
+            <div class="text-xl-center font-weight-bold text-success text-uppercase mb-1">
+              Possible Savings
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">{{possibleSavings}}</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr/>
+<!--<mat-spinner class="mx-auto" matTooltip="Gathering recommendations data" *ngIf="isLoadingChartData"></mat-spinner>-->
+<mat-progress-bar mode="indeterminate" matTooltip="Gathering recommendations data" *ngIf="isLoadingChartData"></mat-progress-bar>
+<div class="row">
+  <bar-chart class="col-xl-6 col-md-6 mb-4" *ngIf="!isLoadingChartData" [chartDatasets]="chartDatasets" [chartLabels]="chartLabels"></bar-chart>
+</div>

@@ -1,0 +1,13 @@
+<h1 class="h3 mb-2 text-gray-800">{{recType | humanize}}</h1>
+
+<mat-dialog-content>
+  <app-mat-table
+    [tableData]="tableData"
+    [tableColumns]="tableCols">
+  </app-mat-table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+  <button mat-button mat-dialog-close color="warn" (click)="onRemediateClick()">Remediate</button>
+</mat-dialog-actions>
