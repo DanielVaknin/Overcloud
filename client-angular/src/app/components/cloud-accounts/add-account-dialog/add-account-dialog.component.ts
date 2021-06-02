@@ -14,6 +14,7 @@ export class AddAccountDialogComponent {
   displayName: string = ""
   accessKey: string = ""
   secretAccessKey: string = ""
+  scanInterval: number = 0
 
   CLOUD_PROVIDERS: any[] = [
     {value: 'aws', viewValue: 'AWS', disabled: false},
@@ -30,7 +31,7 @@ export class AddAccountDialogComponent {
   onAddClick() {
     this.cloudAccountsService.validateCloudAccount(this.cloudProvider, this.accessKey, this.secretAccessKey)
       .subscribe(data => {
-        this.cloudAccountsService.addCloudAccount(this.cloudProvider, this.displayName, this.accessKey, this.secretAccessKey)
+        this.cloudAccountsService.addCloudAccount(this.cloudProvider, this.displayName, this.accessKey, this.secretAccessKey, this.scanInterval)
           .subscribe(data => {
             this._snackBar.open("Cloud account added successfully!", "Dismiss");
             this.dialogRef.close();
