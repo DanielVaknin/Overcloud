@@ -3,7 +3,9 @@
 <div mat-dialog-content class="text-center">
   <mat-form-field appearance="fill">
     <mat-label>Cloud Provider</mat-label>
-    <mat-select [(value)]="cloudProvider" >
+    <mat-select matTooltip="Choose the relevant cloud provider"
+                matTooltipPosition="before"
+                [(value)]="cloudProvider">
       <mat-option *ngFor="let provider of CLOUD_PROVIDERS" [value]="provider.value" [disabled]="provider.disabled">
         {{provider.viewValue}}
       </mat-option>
@@ -12,23 +14,29 @@
   <br>
   <mat-form-field appearance="fill">
     <mat-label>Display Name</mat-label>
-    <input matInput placeholder="Choose a unique name" [(ngModel)]="displayName">
+    <input matInput placeholder="Choose a unique name" [(ngModel)]="displayName"
+           matTooltip="This name is a logical name that will represent the cloud account"
+           matTooltipPosition="before">
     <mat-icon matSuffix>textsms</mat-icon>
   </mat-form-field>
   <br>
   <mat-form-field appearance="fill">
     <mat-label>Access Key</mat-label>
-    <input matInput [(ngModel)]="accessKey">
+    <input matInput [(ngModel)]="accessKey"
+           matTooltip="When working with AWS, you need to provide a valid access key of a user with the required privileges for the scanning and remediation to work"
+           matTooltipPosition="before">
     <mat-icon matSuffix>vpn_key</mat-icon>
   </mat-form-field>
   <br>
   <mat-form-field appearance="fill">
     <mat-label>Secret Access Key</mat-label>
-    <input type="password" matInput [(ngModel)]="secretAccessKey">
+    <input type="password" matInput [(ngModel)]="secretAccessKey"
+           matTooltip="When working with AWS, you need to provide a valid secret access key (that matches the access key provided above) of a user with the required privileges for the scanning and remediation to work"
+           matTooltipPosition="before">
     <mat-icon matSuffix>lock</mat-icon>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button (click)="onAddClick()">Add</button>
+  <button mat-raised-button color="warn" (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onAddClick()">Add</button>
 </div>
