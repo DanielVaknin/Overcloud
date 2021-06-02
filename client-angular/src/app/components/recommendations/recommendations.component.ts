@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RecommendationsService} from "../../services/recommendations.service";
 import {CloudAccountsService} from "../../services/cloud-accounts.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-recommendations',
@@ -22,7 +23,8 @@ export class RecommendationsComponent implements OnInit {
   isLoading = true;
 
   constructor(private recommendationsService: RecommendationsService,
-              private cloudAccountsService: CloudAccountsService) {
+              private cloudAccountsService: CloudAccountsService,
+              private _snackBar: MatSnackBar) {
     this.cloudAccountsService.currentCloudAccountChange.subscribe(data => this.load());
   }
 
@@ -75,6 +77,11 @@ export class RecommendationsComponent implements OnInit {
         }
       });
     }
+  }
+
+  onRemediateAllClick(): void {
+    this._snackBar.open(`Remediating all recommendations for cloud account ${this.cloudAccountsService.getCurrentAccount()}`, "Dismiss");
+    // this.recommendationsService.remediateRecommendation(this.cloudAccountId, this.recType);
   }
 
 }

@@ -33,6 +33,13 @@ export class RecommendationsService {
     });
   }
 
+  remediateRecommendation(cloudAccountId: string, recommendationType: string): Observable<any[]> {
+    return this.http.post<any[]>(this.recommendationsUrl + "/remediate", {
+      cloud_account: cloudAccountId,
+      recommendation_type: recommendationType
+    });
+  }
+
   deleteRecommendationsForCloudAccount(accountId: string): Observable<any> {
     return this.http.delete(this.recommendationsUrl, {
       params: {
