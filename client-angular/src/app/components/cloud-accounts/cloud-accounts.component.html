@@ -30,7 +30,7 @@
           <button mat-icon-button mat-button matTooltip="View account recommendations" (click)="onViewRecommendations(account._id)">
             <mat-icon>visibility</mat-icon>
           </button>
-          <button mat-icon-button mat-button matTooltip="Update account details">
+          <button mat-icon-button mat-button matTooltip="Configure account" (click)="onConfigure(account._id)">
             <mat-icon>settings</mat-icon>
           </button>
           <button mat-icon-button mat-button matTooltip="Delete account" (click)="onDelete(account._id)">

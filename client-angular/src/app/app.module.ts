@@ -31,6 +31,7 @@ import {MDBBootstrapModule} from "angular-bootstrap-md";
 import { ChartComponent } from './components/chart/chart.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { EditAccountDialogComponent } from './components/cloud-accounts/edit-account-dialog/edit-account-dialog.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     HumanizePipe,
     RecommendationDetailsComponent,
     AddAccountDialogComponent,
-    ChartComponent
+    ChartComponent,
+    EditAccountDialogComponent
   ],
   imports: [
     BrowserModule,
