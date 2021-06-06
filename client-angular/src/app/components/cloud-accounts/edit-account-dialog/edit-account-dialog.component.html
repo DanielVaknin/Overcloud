@@ -1,4 +1,4 @@
-<h1 mat-dialog-title class="text-center">Add Cloud Account</h1>
+<h1 mat-dialog-title class="text-center">Configure Cloud Account</h1>
 <hr>
 <div mat-dialog-content class="text-center">
   <mat-form-field appearance="fill">
@@ -40,7 +40,7 @@
     <mat-icon matSuffix>lock</mat-icon>
   </mat-form-field>
   <br>
-  <mat-form-field appearance="fill">
+  <mat-form-field contenteditable="false" appearance="fill">
     <mat-label>Scan Interval (Hours)</mat-label>
     <input type="number" min="0" max="24" matInput [(ngModel)]="scanInterval"
            matTooltip="The number of hours between automated scans.
@@ -52,5 +52,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button color="warn" (click)="onNoClick()">Cancel</button>
-  <button mat-raised-button color="primary" (click)="onAddClick()">Add</button>
+  <button mat-raised-button color="primary" (click)="onSaveClick()" disabled>Add</button>
 </div>

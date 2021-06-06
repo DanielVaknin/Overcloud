@@ -48,12 +48,13 @@ export class CloudAccountsService {
     return this.http.delete<CloudAccount>(url);
   }
 
-  addCloudAccount(provider: string, displayName: string, accessKey: string, secretAccessKey: string) {
+  addCloudAccount(provider: string, displayName: string, accessKey: string, secretAccessKey: string, scanInterval: number) {
     return this.http.post<CloudAccount>(this.cloudAccountsUrl, {
       cloudProvider: provider,
       displayName: displayName,
       accessKey: accessKey,
-      secretKey: secretAccessKey
+      secretKey: secretAccessKey,
+      scanInterval: scanInterval
     });
   }
 

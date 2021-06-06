@@ -28,9 +28,10 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MDBBootstrapModule} from "angular-bootstrap-md";
-import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { ChartComponent } from './components/chart/chart.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { EditAccountDialogComponent } from './components/cloud-accounts/edit-account-dialog/edit-account-dialog.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     HumanizePipe,
     RecommendationDetailsComponent,
     AddAccountDialogComponent,
-    BarChartComponent
+    ChartComponent,
+    EditAccountDialogComponent
   ],
   imports: [
     BrowserModule,

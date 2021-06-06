@@ -1,7 +1,7 @@
 const CloudAccounts = require('../controllers/cloudAccount');
 const express = require('express');
 const router = express.Router();
-const { validateRequest } = require('../middlewares/SchemaValidator');
+const { validateRequest } = require('../middlewares/schemaValidator');
 const catchAsync = require('../utils/catchAsync');
 const {schemaCloudAccount} = require('../schemas');
 

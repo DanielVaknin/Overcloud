@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {CloudAccount} from "../models/cloud-account";
 
 @Injectable({
   providedIn: 'root'
@@ -33,11 +34,25 @@ export class RecommendationsService {
     });
   }
 
+  remediateRecommendation(cloudAccountId: string, recommendationType: string): Observable<any[]> {
+    return this.http.post<any[]>(this.recommendationsUrl + "/remediate", {
+      cloud_account: cloudAccountId,
+      recommendation_type: recommendationType
+    });
+  }
+
   deleteRecommendationsForCloudAccount(accountId: string): Observable<any> {
     return this.http.delete(this.recommendationsUrl, {
       params: {
         cloud_account: accountId
       }
+    });
+  }
+
+  addRecommendationsScanSchedule(accountId: string, scanInterval: number): Observable<any> {
+    return this.http.post<CloudAccount>(this.recommendationsUrl + "/schedule-scan", {
+      cloud_account: accountId,
+      scan_interval: scanInterval
     });
   }
 }

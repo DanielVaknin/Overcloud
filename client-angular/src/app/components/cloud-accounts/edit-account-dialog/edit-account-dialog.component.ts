@@ -1,15 +1,15 @@
-import {Component} from '@angular/core';
-import {MatDialogRef} from "@angular/material/dialog";
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {CloudAccountsService} from "../../../services/cloud-accounts.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {RecommendationsService} from "../../../services/recommendations.service";
 
 @Component({
-  selector: 'app-add-account-dialog',
-  templateUrl: './add-account-dialog.component.html',
-  styleUrls: ['./add-account-dialog.component.scss']
+  selector: 'app-edit-account-dialog',
+  templateUrl: './edit-account-dialog.component.html',
+  styleUrls: ['./edit-account-dialog.component.scss']
 })
-export class AddAccountDialogComponent {
+export class EditAccountDialogComponent {
 
   cloudProvider: string = ""
   displayName: string = ""
@@ -23,14 +23,21 @@ export class AddAccountDialogComponent {
     {value: 'gcp', viewValue: 'GCP (Coming soon)', disabled: true}
   ];
 
-  constructor(
-    public dialogRef: MatDialogRef<AddAccountDialogComponent>,
-    private cloudAccountsService: CloudAccountsService,
-    private recommendationsService: RecommendationsService,
-    private _snackBar: MatSnackBar) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {cloudAccountId: string},
+              public dialogRef: MatDialogRef<EditAccountDialogComponent>,
+              private cloudAccountsService: CloudAccountsService,
+              private recommendationsService: RecommendationsService,
+              private _snackBar: MatSnackBar) {
+    cloudAccountsService.getCloudAccount(data['cloudAccountId']).subscribe(data => {
+      this.cloudProvider = data.cloudProvider;
+      this.displayName = data.displayName;
+      this.accessKey = data.accessKey;
+      this.secretAccessKey = data.secretKey;
+      this.scanInterval = data.scanInterval;
+    });
   }
 
-  onAddClick() {
+  onSaveClick() {
     this.cloudAccountsService.validateCloudAccount(this.cloudProvider, this.accessKey, this.secretAccessKey)
       .subscribe(data => {
         this.cloudAccountsService.addCloudAccount(this.cloudProvider, this.displayName, this.accessKey, this.secretAccessKey, this.scanInterval)
@@ -51,5 +58,4 @@ export class AddAccountDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

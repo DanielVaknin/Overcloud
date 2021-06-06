@@ -19,7 +19,8 @@
         <mat-card-content class="text-center">
           <h2 class="card-title">{{account.displayName}}</h2>
           <p class="card-text">Access Key: {{account.accessKey}}</p>
-          <p class="card-text" *ngIf='account.scanInterval'>Scan Interval: every {{account.scanInterval}} Hours</p>
+          <p class="card-text" *ngIf='account.scanInterval > 0'>Automatic Scan: every {{account.scanInterval}} Hours</p>
+          <p class="card-text" *ngIf='account.scanInterval === 0'>Automatic Scan: Disabled</p>
         </mat-card-content>
         <mat-card-actions align="end">
           <button mat-icon-button mat-button matTooltip="Scan account for recommendations"
@@ -29,7 +30,7 @@
           <button mat-icon-button mat-button matTooltip="View account recommendations" (click)="onViewRecommendations(account._id)">
             <mat-icon>visibility</mat-icon>
           </button>
-          <button mat-icon-button mat-button matTooltip="Update account details">
+          <button mat-icon-button mat-button matTooltip="Configure account" (click)="onConfigure(account._id)">
             <mat-icon>settings</mat-icon>
           </button>
           <button mat-icon-button mat-button matTooltip="Delete account" (click)="onDelete(account._id)">

@@ -6,6 +6,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {AddAccountDialogComponent} from "./add-account-dialog/add-account-dialog.component";
 import {Router} from "@angular/router";
+import {EditAccountDialogComponent} from "./edit-account-dialog/edit-account-dialog.component";
 
 @Component({
   selector: 'app-list',
@@ -58,6 +59,15 @@ export class CloudAccountsComponent {
   onViewRecommendations(accountId: string) {
     this.cloudAccountsService.setCurrentAccount(accountId);
     this.router.navigate(['/recommendations'])
+  }
+
+  onConfigure(accountId: string) {
+    this.dialog.open(EditAccountDialogComponent, {
+      restoreFocus: false,
+      data: {
+        cloudAccountId: accountId
+      }
+    });
   }
 
   onDelete(accountId: string) {

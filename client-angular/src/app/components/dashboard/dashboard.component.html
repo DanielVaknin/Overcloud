@@ -18,13 +18,13 @@
     </div>
   </div>
 
-  <div class="col-xl-6 col-md-6 mb-4" routerLink="/orders">
+  <div class="col-xl-6 col-md-6 mb-4">
     <div class="card border-success border-bottom-success shadow h-100 py-2">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2 text-center">
             <div class="text-xl-center font-weight-bold text-success text-uppercase mb-1">
-              Possible Savings
+              Possible Monthly Savings
             </div>
             <div class="h5 mb-0 font-weight-bold text-gray-800">{{possibleSavings}}</div>
           </div>
@@ -38,8 +38,27 @@
 </div>
 
 <hr/>
-<!--<mat-spinner class="mx-auto" matTooltip="Gathering recommendations data" *ngIf="isLoadingChartData"></mat-spinner>-->
-<mat-progress-bar mode="indeterminate" matTooltip="Gathering recommendations data" *ngIf="isLoadingChartData"></mat-progress-bar>
+
 <div class="row">
-  <bar-chart class="col-xl-6 col-md-6 mb-4" *ngIf="!isLoadingChartData" [chartDatasets]="chartDatasets" [chartLabels]="chartLabels"></bar-chart>
+  <div class="col-xl-6 col-md-6 mb-4">
+    <h1 class="text-center">Top {{ billPerServiceChartElementsToDisplay }} Consuming Services</h1>
+    <mat-progress-bar mode="indeterminate" matTooltip="Fetching data"
+                      *ngIf="isLoadingBillPerServiceChartData"></mat-progress-bar>
+    <div class="row justify-content-center">
+      <chart class="col-xl-6 col-md-6 mb-4" *ngIf="!isLoadingBillPerServiceChartData"
+             [chartDatasets]="billPerServiceChartDatasets"
+             [chartLabels]="billPerServiceChartLabels"
+             [chartType]="billPerServiceChartType"></chart>
+    </div>
+  </div>
+
+  <div class="col-xl-6 col-md-6 mb-4">
+    <h1 class="text-center">Possible Savings Per Recommendation</h1>
+    <mat-progress-bar mode="indeterminate" matTooltip="Fetching data"
+                      *ngIf="isLoadingPossibleSavingsChartData"></mat-progress-bar>
+    <chart *ngIf="!isLoadingPossibleSavingsChartData"
+           [chartDatasets]="possibleSavingsChartDatasets"
+           [chartLabels]="possibleSavingsChartLabels"
+           [chartType]="possibleSavingsChartType"></chart>
+  </div>
 </div>

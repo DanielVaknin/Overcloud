@@ -1,12 +1,12 @@
 import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: 'bar-chart',
-  templateUrl: './bar-chart.component.html',
-  styleUrls: ['./bar-chart.component.scss'],
+  selector: 'chart',
+  templateUrl: './chart.component.html',
+  styleUrls: ['./chart.component.scss'],
 })
-export class BarChartComponent {
-  public chartType: string = 'bar';
+export class ChartComponent {
+  @Input() chartType: string = 'bar';
 
   @Input() chartDatasets: Array<any> = [];
 

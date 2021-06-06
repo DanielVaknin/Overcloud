@@ -1,7 +1,6 @@
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 const mongoose = require("mongoose");
-//const users = require("./api/users");
 const cloudAccount = require("./api/cloudAccount");
 const auth = require("./api/auth");
 const express = require("express");

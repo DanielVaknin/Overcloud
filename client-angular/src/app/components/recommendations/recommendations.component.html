@@ -2,8 +2,9 @@
 
   <!-- Page Heading -->
   <h1 class="h3 mb-2 text-gray-800">Recommendations</h1>
-  <p class="mb-4">This table shows the current recommendations for the different cloud accounts</p>
-  <button mat-raised-button color="warn">Remediate All</button>
+  <p class="mb-4">This table shows the current recommendations for the chosen cloud accounts</p>
+  <p class="mb-4">These recommendations are based on our (and AWS's) best-practices.</p>
+  <button mat-raised-button color="warn" (click)="onRemediateAllClick()">Remediate All</button>
   <hr>
 
   <mat-progress-bar mode="indeterminate" matTooltip="Loading recommendations" *ngIf="isLoading"></mat-progress-bar>
