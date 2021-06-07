@@ -1,3 +1,35 @@
+# Overcloud Server
+
+This service is the backend server for Overcloud platform
+
+## Requirements
+
+Install the required dependencies:
+
+```bash
+npm install
+```
+
+## Start Service
+
+To start the recommendation service, run the following command:
+
+```bash
+python manage.py runserver
+```
+
+## Run with Docker
+
+```bash
+docker run --name overcloud-server --pull always -d -p 8080:8080 danielvaknin/overcloud-server:latest
+
+# View logs:
+docker logs overcloud-server
+
+# Delete container:
+docker rm -f overcloud-server
+```
+
 # API Documentation
 
 ## User API
