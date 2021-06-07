@@ -31,6 +31,7 @@ export class AddAccountDialogComponent {
   }
 
   onAddClick() {
+    this._snackBar.open("Adding cloud account...", "Dismiss");
     this.cloudAccountsService.validateCloudAccount(this.cloudProvider, this.accessKey, this.secretAccessKey)
       .subscribe(data => {
         this.cloudAccountsService.addCloudAccount(this.cloudProvider, this.displayName, this.accessKey, this.secretAccessKey, this.scanInterval)
@@ -40,8 +41,11 @@ export class AddAccountDialogComponent {
               this.dialogRef.close();
               location.reload();
             }, error => {
+              console.log(error);
               this._snackBar.open(error['error']['error'], "Dismiss")
             });
+          }, error => {
+            this._snackBar.open(error['error']['error'], "Dismiss")
           });
       }, error => {
         this._snackBar.open(error['error']['error'], "Dismiss")
