@@ -11,9 +11,7 @@ import {EditAccountDialogComponent} from "./edit-account-dialog/edit-account-dia
 @Component({
   selector: 'app-list',
   templateUrl: './cloud-accounts.component.html',
-  styleUrls: ['./cloud-accounts.component.scss',
-    '../../vendor/datatables/dataTables.bootstrap4.min.css'
-  ]
+  styleUrls: ['./cloud-accounts.component.scss']
 })
 export class CloudAccountsComponent {
 
