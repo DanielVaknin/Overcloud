@@ -48,7 +48,16 @@ export class AddAccountDialogComponent {
       });
   }
 
-  onNoClick(): void {
+  onValidateClick() {
+    this.cloudAccountsService.validateCloudAccount(this.cloudProvider, this.accessKey, this.secretAccessKey)
+      .subscribe(data => {
+        this._snackBar.open('Account was validated successfully', "Dismiss")
+      }, error => {
+        this._snackBar.open(error['error']['error'], "Dismiss")
+      });
+  }
+
+  onCancelClick(): void {
     this.dialogRef.close();
   }
 
