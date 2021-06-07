@@ -2,6 +2,18 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.8.
 
+## Run with Docker
+
+```bash
+docker run --name overcloud-client --pull always -d -p 4200:80 danielvaknin/overcloud-client:latest
+
+# View logs:
+docker logs overcloud-client
+
+# Delete container:
+docker rm -f overcloud-client
+```
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
