@@ -3,7 +3,7 @@
 <div mat-dialog-content class="text-center">
   <mat-form-field appearance="fill">
     <mat-label>Cloud Provider</mat-label>
-    <mat-select matTooltip="Choose the relevant cloud provider"
+    <mat-select matTooltip="Choose the relevant cloud provider" required
                 matTooltipPosition="before"
                 [(value)]="cloudProvider">
       <mat-option *ngFor="let provider of CLOUD_PROVIDERS" [value]="provider.value" [disabled]="provider.disabled">
@@ -17,7 +17,7 @@
     <mat-label>Display Name</mat-label>
     <input matInput placeholder="Choose a unique name" [(ngModel)]="displayName"
            matTooltip="This name is a logical name that will represent the cloud account"
-           matTooltipPosition="before">
+           matTooltipPosition="before" required minlength="3">
     <mat-icon matSuffix>textsms</mat-icon>
   </mat-form-field>
   <br>
@@ -26,7 +26,7 @@
     <input matInput [(ngModel)]="accessKey"
            matTooltip="When working with AWS, you need to provide a valid access key of a user with
            the required privileges for the scanning and remediation to work"
-           matTooltipPosition="before">
+           matTooltipPosition="before" required minlength="10">
     <mat-icon matSuffix>vpn_key</mat-icon>
   </mat-form-field>
   <br>
@@ -36,7 +36,7 @@
            matTooltip="When working with AWS, you need to provide a valid secret access key (that matches
            the access key provided above) of a user with the required privileges
            for the scanning and remediation to work"
-           matTooltipPosition="before">
+           matTooltipPosition="before" required minlength="10">
     <mat-icon matSuffix>lock</mat-icon>
   </mat-form-field>
   <br>
@@ -46,7 +46,7 @@
            matTooltip="The number of hours between automated scans.
            Setting this number to a lower value will require more scan on the account,
            which might raise costs as it requires more API calls. Default: 0 (disable automatic scans)"
-           matTooltipPosition="before">
+           matTooltipPosition="before" required>
     <mat-icon matSuffix>update</mat-icon>
   </mat-form-field>
 </div>
