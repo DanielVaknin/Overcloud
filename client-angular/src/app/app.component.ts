@@ -3,6 +3,7 @@ import {AuthService} from "./services/auth.service";
 import {Router} from "@angular/router";
 import {CloudAccountsService} from "./services/cloud-accounts.service";
 import {CloudAccount} from "./models/cloud-account";
+import {RealtimeService} from "./services/realtime.service";
 
 @Component({
   selector: 'app-root',
@@ -16,12 +17,14 @@ export class AppComponent {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private cloudAccountsService: CloudAccountsService) {
+              private cloudAccountsService: CloudAccountsService,
+              private realtimeService: RealtimeService) {
     this.cloudAccountsService.getCloudAccounts().subscribe(data => {
       this.cloudAccounts = data;
       this.onCurrentCloudAccountChange(data[0]._id);
     });
     this.cloudAccountsService.currentCloudAccountChange.subscribe(data => this.selectedCloudAccount = data);
+    this.realtimeService.scanResponse.subscribe(data => console.log(data));
   }
 
   isAuthenticated() {
