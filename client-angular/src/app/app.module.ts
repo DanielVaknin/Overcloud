@@ -32,6 +32,7 @@ import { ChartComponent } from './components/chart/chart.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { EditAccountDialogComponent } from './components/cloud-accounts/edit-account-dialog/edit-account-dialog.component';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { EditAccountDialogComponent } from './components/cloud-accounts/edit-acc
     MatDialogModule,
     MatSnackBarModule,
     MatFormFieldModule,
+    MatButtonToggleModule,
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,

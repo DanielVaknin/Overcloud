@@ -23,6 +23,12 @@ export class AddAccountDialogComponent {
     {value: 'gcp', viewValue: 'GCP (Coming soon)', disabled: true}
   ];
 
+  CLOUD_PROVIDERS_LOGOS: any[] = [
+    {value: 'aws', src: 'assets/amazon-web-services-logo.svg', disabled: false},
+    {value: 'azure', src: 'assets/azure-logo.svg', disabled: true},
+    {value: 'gcp', src: 'assets/google-cloud-logo.svg', disabled: true}
+  ];
+
   constructor(
     public dialogRef: MatDialogRef<AddAccountDialogComponent>,
     private cloudAccountsService: CloudAccountsService,

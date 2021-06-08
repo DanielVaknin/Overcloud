@@ -1,18 +1,25 @@
 <h1 mat-dialog-title class="text-center">Add Cloud Account</h1>
 <hr>
 <div mat-dialog-content class="text-center">
-  <mat-form-field appearance="fill">
-    <mat-label>Cloud Provider</mat-label>
-    <mat-select matTooltip="Choose the relevant cloud provider" required
-                matTooltipPosition="before"
-                [(value)]="cloudProvider">
-      <mat-option *ngFor="let provider of CLOUD_PROVIDERS" [value]="provider.value" [disabled]="provider.disabled">
-        {{provider.viewValue}}
-      </mat-option>
-    </mat-select>
-    <mat-icon matSuffix>cloud</mat-icon>
-  </mat-form-field>
-  <br>
+<!--  <mat-form-field appearance="fill">-->
+<!--    <mat-label>Cloud Provider</mat-label>-->
+<!--    <mat-select matTooltip="Choose the relevant cloud provider" required-->
+<!--                matTooltipPosition="before"-->
+<!--                [(value)]="cloudProvider">-->
+<!--      <mat-option *ngFor="let provider of CLOUD_PROVIDERS" [value]="provider.value" [disabled]="provider.disabled">-->
+<!--        {{provider.viewValue}}-->
+<!--      </mat-option>-->
+<!--    </mat-select>-->
+<!--    <mat-icon matSuffix>cloud</mat-icon>-->
+<!--  </mat-form-field>-->
+    <mat-button-toggle-group name="cloudProvider" aria-label="Cloud Provider" [(ngModel)]="cloudProvider">
+      <mat-button-toggle *ngFor="let provider of CLOUD_PROVIDERS_LOGOS"
+                         [value]="provider.value"
+                         [disabled]="provider.disabled">
+        <img [src]="provider.src" height="50" width="50" [alt]="provider.value">
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  <hr>
   <mat-form-field appearance="fill">
     <mat-label>Display Name</mat-label>
     <input matInput placeholder="Choose a unique name" [(ngModel)]="displayName"
