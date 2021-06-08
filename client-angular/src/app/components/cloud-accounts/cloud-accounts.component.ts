@@ -39,7 +39,7 @@ export class CloudAccountsComponent {
   onAdd() {
     const dialogRef = this.dialog.open(AddAccountDialogComponent, {
       restoreFocus: false,
-      // width: '250px'
+      autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe(result => {

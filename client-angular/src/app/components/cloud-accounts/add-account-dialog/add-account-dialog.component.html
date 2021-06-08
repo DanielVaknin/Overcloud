@@ -15,8 +15,9 @@
     <mat-button-toggle-group name="cloudProvider" aria-label="Cloud Provider" [(ngModel)]="cloudProvider">
       <mat-button-toggle *ngFor="let provider of CLOUD_PROVIDERS_LOGOS"
                          [value]="provider.value"
-                         [disabled]="provider.disabled">
-        <img [src]="provider.src" height="50" width="50" [alt]="provider.value">
+                         [disabled]="provider.disabled"
+                         [matTooltip]="provider.value" matTooltipPosition="above">
+        <img [src]="provider.src" height="60" width="60" [alt]="provider.value">
       </mat-button-toggle>
     </mat-button-toggle-group>
   <hr>
@@ -57,8 +58,8 @@
     <mat-icon matSuffix>update</mat-icon>
   </mat-form-field>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions class="justify-content-center">
   <button mat-raised-button color="warn" (click)="onCancelClick()">Cancel</button>
-  <button mat-raised-button color="accent" (click)="onValidateClick()">Validate</button>
-  <button mat-raised-button color="primary" (click)="onAddClick()">Add</button>
+  <button mat-raised-button color="accent" (click)="onValidateClick()" [disabled]="cloudProvider === ''">Validate</button>
+  <button mat-raised-button color="primary" (click)="onAddClick()" [disabled]="cloudProvider === ''">Add</button>
 </div>
