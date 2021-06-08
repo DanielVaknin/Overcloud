@@ -32,6 +32,7 @@ import { ChartComponent } from './components/chart/chart.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { EditAccountDialogComponent } from './components/cloud-accounts/edit-account-dialog/edit-account-dialog.component';
+import { AboutComponent } from './components/about/about.component';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @NgModule({
@@ -46,7 +47,8 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     RecommendationDetailsComponent,
     AddAccountDialogComponent,
     ChartComponent,
-    EditAccountDialogComponent
+    EditAccountDialogComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
