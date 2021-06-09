@@ -15,6 +15,7 @@ export class RecommendationDetailsComponent implements OnInit {
 
   cloudAccountId: string = "";
   recType: string = "";
+  recDescription: string = "";
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {},
               public dialogRef: MatDialogRef<RecommendationDetailsComponent>,
@@ -24,6 +25,8 @@ export class RecommendationDetailsComponent implements OnInit {
     this.cloudAccountId = data["cloudAccountId"]
     // @ts-ignore
     this.recType = data["recType"]
+    // @ts-ignore
+    this.recDescription = data["recDescription"]
     // @ts-ignore
     this.tableCols = data["tableCols"]
     // @ts-ignore

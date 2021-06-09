@@ -17,7 +17,8 @@ export class RecommendationsComponent implements OnInit {
     "_id",
     "data",
     "type",
-    "accountId"
+    "accountId",
+    "description"
   ]
 
   isLoading = true;
