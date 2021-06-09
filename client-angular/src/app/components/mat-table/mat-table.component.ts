@@ -5,6 +5,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {MatDialog} from "@angular/material/dialog";
 import {RecommendationDetailsComponent} from "../recommendations/recommendation-details/recommendation-details.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-mat-table',
@@ -36,7 +37,8 @@ export class MatTableComponent implements OnInit, OnChanges {
   innerTableCols: string[] = [];
   innerTableData: {}[] = [];
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog,
+              private _snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -81,6 +83,9 @@ export class MatTableComponent implements OnInit, OnChanges {
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
       });
+    }
+    else {
+      this._snackBar.open("There are no items for this recommendation", "Dismiss")
     }
   }
 }
